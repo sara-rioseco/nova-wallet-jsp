@@ -7,7 +7,7 @@
     <groupId>com.novawallet</groupId>
     <artifactId>app</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>novawallet</name>
+    <name>nova-wallet-jsp</name>
     <packaging>war</packaging>
 
     <properties>

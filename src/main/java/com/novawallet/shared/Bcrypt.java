@@ -1,15 +1,15 @@
-package com.novawallet.app;
+package com.novawallet.shared;
 
 import org.springframework.security.crypto.bcrypt.*;
 
 public abstract class Bcrypt {
 
-    protected static String encode(String pass) {
+    public static String encode(String pass) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder.encode(pass);
     }
 
-    protected static boolean verify(String input, String storedHash) {
+    public static boolean verify(String input, String storedHash) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder.matches(input, storedHash);
     }
