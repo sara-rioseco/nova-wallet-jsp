@@ -4,13 +4,13 @@ import org.springframework.security.crypto.bcrypt.*;
 
 public abstract class Bcrypt {
 
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
     public static String encode(String pass) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder.encode(pass);
     }
 
     public static boolean verify(String input, String storedHash) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder.matches(input, storedHash);
     }
 }
