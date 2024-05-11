@@ -15,16 +15,17 @@ public abstract class DB {
     private Statement stmt;
     private ResultSet rs;
 
-    private void connect() {
+    protected void connect() {
         try {
-                Class.forName("com.mysql.jdbc.Driver");
-                String stringConnection = "jdbc:mysql://localhost:3306/";
-                // CREDENCIALES
-                String user = "root";
-                String pass = "admin";
-                conn = DriverManager.getConnection(stringConnection, user, pass);
-                stmt = conn.createStatement();
-                System.out.println("DB connection: ON");
+            // CREDENCIALES
+            String user = "root";
+            String pass = "admin";
+
+            Class.forName("com.mysql.jdbc.Driver");
+            String stringConnection = "jdbc:mysql://localhost:3306/";
+            conn = DriverManager.getConnection(stringConnection, user, pass);
+            stmt = conn.createStatement();
+            System.out.println("DB connection: ON");
         } catch (ClassNotFoundException ex)  {
             System.out.println("Driver not found");
         } catch (SQLException ex) {
@@ -34,18 +35,6 @@ public abstract class DB {
             System.out.println("ErrorCode: " + ex.getErrorCode());
         }
     }
-
-//    public static ConnectDB getInstance() {
-//        try {
-//            if (instance == null || instance.conn.isClosed()) {
-//                System.out.println("Creating DBConnection instance");
-//                instance = new DBConnection();
-//            }
-//        } catch (SQLException ex) {
-//            System.out.println("There was an error getting the connection instance: " + ex.getMessage());
-//        }
-//        return instance;
-//    }
 
     protected Statement getStatement() throws SQLException {
         return stmt;
@@ -138,11 +127,14 @@ public abstract class DB {
         try {
             if(conn!=null) {
                 conn.close();
-                System.out.println("DB connection: OFF");
+                System.out.println("DB connection: CLOSED");
             } if(stmt!=null) {
                 stmt.close();
-                System.out.println("Statement: OFF");
-            }
+                System.out.println("Statement: CLOSED");
+            } if(rs!=null) {
+            rs.close();
+            System.out.println("ResultSet: CLOSED");
+        }
         } catch (SQLException e) {
             System.out.println("Error closing DB");
         }
