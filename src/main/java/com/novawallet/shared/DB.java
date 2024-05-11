@@ -19,6 +19,7 @@ public abstract class DB {
         try {
                 Class.forName("com.mysql.jdbc.Driver");
                 String stringConnection = "jdbc:mysql://localhost:3306/";
+                // CREDENCIALES
                 String user = "root";
                 String pass = "admin";
                 conn = DriverManager.getConnection(stringConnection, user, pass);
@@ -92,8 +93,9 @@ public abstract class DB {
         }
         else {
             ArrayList<String> tableColumnNames = new ArrayList<String>();
+            String sql = "SELECT * FROM nova_wallet."+ tableName;
             try {
-                ResultSet rs = stmt.executeQuery("SELECT * FROM nova_wallet_prueba_1."+ tableName);
+                ResultSet rs = stmt.executeQuery(sql);
                 ResultSetMetaData rsmd = rs.getMetaData();
                 int columnCount = rsmd.getColumnCount();
                 for (int i = 1; i <= columnCount; i++ ) {

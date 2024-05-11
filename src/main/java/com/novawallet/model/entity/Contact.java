@@ -1,0 +1,85 @@
+package com.novawallet.model.entity;
+
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDateTime;
+
+public class Contact {
+    private int id;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private int contactUserId;
+    private int ownerUserId;
+    private final Timestamp creationDate;
+
+    public Contact(String firstName, String lastName, String email, int contactUserId, int ownerUserId) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.contactUserId = contactUserId;
+        this.ownerUserId = ownerUserId;
+        this.creationDate = Timestamp.from(Instant.from(LocalDateTime.now()));
+    }
+
+    public Contact(String firstName, String email, int contactUserId, int ownerUserId) {
+        this(firstName, null, email, contactUserId, ownerUserId);
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFullName(){
+        return firstName + (lastName != null ? lastName : "");
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getContactUserId() {
+        return contactUserId;
+    }
+
+    public void setContactUserId(int contactUserId) {
+        this.contactUserId = contactUserId;
+    }
+
+    public int getOwnerUserId() {
+        return ownerUserId;
+    }
+
+    public void setOwnerUserId(int ownerUserId) {
+        this.ownerUserId = ownerUserId;
+    }
+
+    public Timestamp getCreationDate() {
+        return creationDate;
+    }
+}

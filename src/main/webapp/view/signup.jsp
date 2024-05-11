@@ -1,4 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -9,8 +8,16 @@
 <body data-bs-theme="dark" class="container-sm d-flex flex-column justify-content-center align-items-center h-100">
 
 <main style="width: 600px">
-    <form method="post" action="login">
+    <form method="post" action="signup">
         <h1 class="display-4 text-center">Welcome to NovaWallet</h1>
+        <div class="mb-3">
+            <label for="firstname" class="form-label">First Name</label>
+            <input type="text" name="firstname" class="form-control" id="firstname" placeholder="Write your first name" aria-describedby="nameHelp" required>
+        </div>
+        <div class="mb-3">
+            <label for="lastname" class="form-label">Last Name</label>
+            <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Write your last name" aria-describedby="lastnameHelp" required>
+        </div>
         <div class="mb-3">
             <label for="mail" class="form-label">Email</label>
             <input type="email" name="mail" class="form-control" id="mail" placeholder="Write your email" aria-describedby="nameHelp" required>
