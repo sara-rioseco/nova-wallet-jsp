@@ -12,11 +12,16 @@ public class Account {
     private BigDecimal balance;
     private final Timestamp creationDate;
 
-    public Account(int ownerId, int currencyId) {
+    public Account(int id, int ownerId, int currencyId, BigDecimal balance, Timestamp creationDate) {
+        this.id = id;
         this.ownerId = ownerId;
         this.currencyId = currencyId;
-        this.balance = BigDecimal.ZERO;
-        this.creationDate = Timestamp.from(Instant.from(LocalDateTime.now()));
+        this.balance = balance;
+        this.creationDate = creationDate;
+    }
+
+    public Account(int ownerId, int currencyId) {
+        this(0, ownerId, currencyId, new BigDecimal(0), Timestamp.from(Instant.from(LocalDateTime.now())));
     }
 
     public int getId() {

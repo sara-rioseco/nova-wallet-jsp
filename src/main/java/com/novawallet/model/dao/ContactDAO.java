@@ -6,10 +6,10 @@ import com.novawallet.model.entity.User;
 import java.util.List;
 
 public interface ContactDAO {
-    int addContact(Contact contact);
+    boolean addContact(Contact contact);
     List<Contact> getAllContacts();
     List<Contact> getContactsByOwnerId(int id);
     Contact getContactById(int id);
-    int updateContact(int id, Contact contact);
-    int deleteContact(int id);
+    boolean updateContact(Contact contact);
+    boolean deleteContact(int id);
 }

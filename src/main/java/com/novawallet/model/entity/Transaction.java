@@ -16,9 +16,10 @@ public class Transaction {
     private int receiverAccountId;
     private final Timestamp creationDate;
 
-    public Transaction(BigDecimal amount, int currencyId, TransactionType transactionType,
+    public Transaction(int id, BigDecimal amount, int currencyId, TransactionType transactionType,
                        int senderUserId, int senderAccountId, int receiverUserId,
-                       int receiverAccountId) {
+                       int receiverAccountId, Timestamp creationDate) {
+        this.id = id;
         this.amount = amount;
         this.currencyId = currencyId;
         this.transactionType = transactionType;
@@ -26,7 +27,14 @@ public class Transaction {
         this.senderAccountId = senderAccountId;
         this.receiverUserId = receiverUserId;
         this.receiverAccountId = receiverAccountId;
-        this.creationDate = Timestamp.from(Instant.from(LocalDateTime.now()));
+        this.creationDate = creationDate;
+    }
+
+    public Transaction(BigDecimal amount, int currencyId, TransactionType transactionType,
+                       int senderUserId, int senderAccountId, int receiverUserId,
+                       int receiverAccountId) {
+        this(0, amount, currencyId, transactionType, senderUserId, senderAccountId,
+                receiverUserId, receiverAccountId, Timestamp.from(Instant.from(LocalDateTime.now())));
     }
 
     public int getId() {

@@ -12,12 +12,18 @@ public class User {
     private String password;
     private final Timestamp creationDate; // maybe cambiar a java.sql.timestamp en dao o service
 
-    public User(String firstName, String lastName, String email, String password) {
+
+    public User(int id, String firstName, String lastName, String email, String password, Timestamp creationDate) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.creationDate = Timestamp.from(Instant.from(LocalDateTime.now()));
+        this.creationDate = creationDate;
+    }
+
+    public User(String firstName, String lastName, String email, String password) {
+        this(0, firstName, lastName, email, password, Timestamp.from(Instant.from(LocalDateTime.now())));
     }
 
     public int getId() {

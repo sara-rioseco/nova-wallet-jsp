@@ -13,17 +13,18 @@ public class Contact {
     private int ownerUserId;
     private final Timestamp creationDate;
 
-    public Contact(String firstName, String lastName, String email, int contactUserId, int ownerUserId) {
+    public Contact(int id, String firstName, String lastName, String email, int contactUserId, int ownerUserId, Timestamp creationDate) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.contactUserId = contactUserId;
         this.ownerUserId = ownerUserId;
-        this.creationDate = Timestamp.from(Instant.from(LocalDateTime.now()));
+        this.creationDate = creationDate;
     }
 
     public Contact(String firstName, String email, int contactUserId, int ownerUserId) {
-        this(firstName, null, email, contactUserId, ownerUserId);
+        this(0, firstName, null, email, contactUserId, ownerUserId, Timestamp.from(Instant.from(LocalDateTime.now())));
     }
 
 

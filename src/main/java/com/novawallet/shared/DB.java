@@ -16,13 +16,14 @@ public abstract class DB {
     private ResultSet rs;
 
     protected void connect() {
+        String schemaName = "nova_wallet";
+        // MODIFICAR CREDENCIALES
+        String user = "root";
+        String pass = "admin";
         try {
-            // CREDENCIALES
-            String user = "root";
-            String pass = "admin";
-
             Class.forName("com.mysql.jdbc.Driver");
-            String stringConnection = "jdbc:mysql://localhost:3306/";
+
+            String stringConnection = "jdbc:mysql://localhost:3306/"+ schemaName;
             conn = DriverManager.getConnection(stringConnection, user, pass);
             stmt = conn.createStatement();
             System.out.println("DB connection: ON");
@@ -63,7 +64,7 @@ public abstract class DB {
             ArrayList<String> tableNames = new ArrayList<String>();
             try {
                 DatabaseMetaData md = this.getMetaData();
-                ResultSet rs = md.getTables("nova_wallet", null, "%", null);
+                ResultSet rs = md.getTables(null, null, "%", null);
 
                 while (rs.next()) {
                     tableNames.add(rs.getString(3));
@@ -82,13 +83,13 @@ public abstract class DB {
         }
         else {
             ArrayList<String> tableColumnNames = new ArrayList<String>();
-            String sql = "SELECT * FROM nova_wallet."+ tableName;
+            String sql = "SELECT * FROM "+ tableName;
             try {
                 ResultSet rs = stmt.executeQuery(sql);
-                ResultSetMetaData rsmd = rs.getMetaData();
-                int columnCount = rsmd.getColumnCount();
+                ResultSetMetaData resultSetMetaData = rs.getMetaData();
+                int columnCount = resultSetMetaData.getColumnCount();
                 for (int i = 1; i <= columnCount; i++ ) {
-                    tableColumnNames.add(rsmd.getColumnName(i));
+                    tableColumnNames.add(resultSetMetaData.getColumnName(i));
                 }
             } catch (SQLException e) {
                 System.out.println("Error getting DB table column names");
@@ -102,7 +103,6 @@ public abstract class DB {
             connect();
             this.stmt= conn.createStatement();
             rs = stmt.executeQuery(sql);
-            close();
             return rs;
         } catch (SQLException e) {
             System.out.print(e.getMessage());
@@ -114,9 +114,7 @@ public abstract class DB {
         try {
             connect();
             this.stmt= conn.createStatement();
-            int updated = stmt.executeUpdate(sql);
-            close();
-            return updated;
+            return stmt.executeUpdate(sql);
         } catch (SQLException e) {
             System.out.print(e.getMessage());
             return 0;

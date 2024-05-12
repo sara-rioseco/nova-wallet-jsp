@@ -5,9 +5,14 @@ public class Currency {
     private String name;
     private String symbol;
 
-    public Currency(String name, String symbol) {
+    public Currency(int id, String name, String symbol) {
+        this.id = id;
         this.name = name;
         this.symbol = symbol;
+    }
+
+    public Currency(String name, String symbol) {
+        this(0, name, symbol);
     }
 
     public int getId() {
