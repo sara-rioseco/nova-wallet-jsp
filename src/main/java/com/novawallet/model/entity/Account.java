@@ -56,6 +56,14 @@ public class Account {
         this.balance = balance;
     }
 
+    public void addBalance(BigDecimal amount) {
+        this.balance = this.balance.add(amount);
+    }
+
+    public void subtractBalance(BigDecimal amount) {
+        this.balance = this.balance.subtract(amount);
+    }
+
     public Timestamp getCreationDate() {
         return creationDate;
     }

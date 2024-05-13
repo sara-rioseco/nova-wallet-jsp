@@ -2,7 +2,6 @@ package com.novawallet.model.dao.impl;
 
 import com.novawallet.model.dao.AccountDAO;
 import com.novawallet.model.entity.Account;
-import com.novawallet.model.entity.Currency;
 import com.novawallet.shared.DB;
 
 import java.math.BigDecimal;
