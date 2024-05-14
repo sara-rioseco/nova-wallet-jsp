@@ -1,31 +1,58 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Cache-control" content="public">
+    <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1">
+    <meta name="description"
+          content="An e-wallet that allows the user to manage, transfer and deposit money in a convenient and easy way.">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> -->
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <title>NovaWallet</title>
+    <script type="module" crossorigin="" src="./resources/js/app.js"></script>
+    <link rel="stylesheet" crossorigin="" href="./resources/css/style.css" type="text/css">
 </head>
-<body data-bs-theme="dark" class="container-sm d-flex flex-column justify-content-center align-items-center h-100">
 
-<main style="width: 600px">
-    <form method="post" action="login">
-        <h1 class="display-4 text-center">Welcome to NovaWallet</h1>
-        <div class="mb-3">
-            <label for="mail" class="form-label">Email</label>
-            <input type="email" name="mail" class="form-control" id="mail" placeholder="Write your email" aria-describedby="nameHelp" required>
-        </div>
-        <div class="mb-3">
-            <label for="pass" class="form-label">Password</label>
-            <input type="password" name="pass" class="form-control" placeholder="Write your password" id="pass" required>
-        </div>
-        <input type="submit" class="btn btn-secondary" value="Login" />
-    </form>
-</main>
+<body>
+<div id="root" class="root">
+    <div class="login-wrapper">
+        <form class="login-content-wrapper" method="post" action="login"><h1>Nova<span>Wallet</span></h1>
+            <div class="input-wrapper visually-hidden" hidden="">
+                <input class="input input-text" type="text"
+                    id="login-username" autocomplete="new-password"
+                    placeholder=" " name="username">
+                <label class="label input-label" for="login-username">Enter your username</label>
+            </div>
+            <div class="input-wrapper">
+                <input class="input input-text" type="search" id="login-email"
+                      autocomplete="new-password" placeholder=" " name="mail" required>
+                <label class="label input-label" for="login-email">Enter your Email</label>
+            </div>
+            <div class="input-wrapper">
+                <input class="input input-text" type="password" id="login-password"
+                    autocomplete="new-password" placeholder=" " name="pass" required>
+                <label class="label input-label" for="login-password">Enter
+                your Password</label></div>
+            <input type="submit" class="button" id="button-login" value="Login" />
+            <p class="login-text">Don't have an account?
+                <span><a href="signup.jsp">Sign up here.</a></span></p>
+            <dialog class="modal msg-modal">
+                <div class="wrapper dialog-wrapper"><h3 class="title">Error</h3>
+                    <p>Invalid credentials</p>
+                    <button class="button close-button">Ok</button>
+                </div>
+            </dialog>
+        </form>
+    </div>
+</div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+  crossorigin="anonymous"></script> -->
+
+
 </body>
 </html>

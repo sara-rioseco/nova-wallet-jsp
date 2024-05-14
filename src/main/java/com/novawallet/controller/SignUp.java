@@ -1,6 +1,11 @@
 package com.novawallet.controller;
 
+import com.novawallet.model.dao.UserDAO;
+import com.novawallet.model.dao.impl.UserDAOImpl;
+import com.novawallet.model.service.UserService;
+import com.novawallet.model.service.impl.UserServiceImpl;
 import com.novawallet.shared.Bcrypt;
+import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,6 +17,17 @@ import java.io.PrintWriter;
 
 @WebServlet(name ="signup", value="/signup")
 public class SignUp extends HttpServlet {
+
+    private UserService userService;
+    private UserDAO userDAO;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        userDAO= new UserDAOImpl();
+        userService= new UserServiceImpl(userDAO);
+    }
+
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
 
