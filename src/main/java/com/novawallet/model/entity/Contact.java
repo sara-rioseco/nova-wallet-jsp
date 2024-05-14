@@ -24,7 +24,7 @@ public class Contact {
     }
 
     public Contact(String firstName, String email, int contactUserId, int ownerUserId) {
-        this(0, firstName, null, email, contactUserId, ownerUserId, Timestamp.from(Instant.from(LocalDateTime.now())));
+        this(0, firstName, null, email, contactUserId, ownerUserId, Timestamp.from(Instant.now()));
     }
 
 

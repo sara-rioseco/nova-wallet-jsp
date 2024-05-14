@@ -25,8 +25,12 @@ public class CurrencyDAOImpl extends DB implements CurrencyDAO {
         String sql="INSERT INTO currencies(name,symbol)";
         sql+=" VALUES('"+name+"','"+symbol+"')";
 
-        int res = update(sql);
-        return res>0;
+        try {
+            int res = update(sql);
+            return res>0;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

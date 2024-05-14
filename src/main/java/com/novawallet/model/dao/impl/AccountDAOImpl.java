@@ -25,8 +25,12 @@ public class AccountDAOImpl extends DB implements AccountDAO {
         String sql="INSERT INTO accounts(owner_id, currency_id)";
         sql+=" VALUES("+ownerId+","+currencyId+")";
 
-        int res = update(sql);
-        return res>0;
+        try {
+            int res = update(sql);
+            return res>0;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

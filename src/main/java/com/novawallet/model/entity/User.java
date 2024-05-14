@@ -23,7 +23,7 @@ public class User {
     }
 
     public User(String firstName, String lastName, String email, String password) {
-        this(0, firstName, lastName, email, password, Timestamp.from(Instant.from(LocalDateTime.now())));
+        this(0, firstName, lastName, email, password, Timestamp.from(Instant.now()));
     }
 
     public int getId() {

@@ -40,8 +40,7 @@ public class TransactionServiceImpl implements TransactionService {
                 && userDAO.getUserById(transaction.getSenderUserId()) != null
                 && accountDAO.getAccountById(transaction.getSenderAccountId()) != null
                 && userDAO.getUserById(transaction.getReceiverUserId()) != null
-                && accountDAO.getAccountById(transaction.getReceiverAccountId()) != null
-                && transaction.getCreationDate().before(Timestamp.valueOf(LocalDateTime.now()))) {
+                && accountDAO.getAccountById(transaction.getReceiverAccountId()) != null) {
             return transactionDAO.addTransaction(transaction);
         } else {
             System.out.println("Error creating transaction");

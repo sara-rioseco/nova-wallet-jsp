@@ -27,8 +27,6 @@ public class UserServiceImpl implements UserService {
                 && !user.getEmail().isBlank()
                 && user.getPassword() !=null
                 && !user.getPassword().isBlank()
-                && user.getCreationDate() !=null
-                && user.getCreationDate().before(Timestamp.valueOf(LocalDateTime.now()))
                 && userDAO.getUserByEmail(user.getEmail()) == null) {
             return userDAO.addUser(user);
         } else {

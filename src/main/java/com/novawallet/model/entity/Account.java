@@ -21,7 +21,7 @@ public class Account {
     }
 
     public Account(int ownerId, int currencyId) {
-        this(0, ownerId, currencyId, new BigDecimal(0), Timestamp.from(Instant.from(LocalDateTime.now())));
+        this(0, ownerId, currencyId, new BigDecimal(0), Timestamp.from(Instant.now()));
     }
 
     public int getId() {

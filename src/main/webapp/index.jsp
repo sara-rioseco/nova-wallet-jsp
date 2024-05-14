@@ -18,7 +18,7 @@
 <body>
 <div id="root" class="root">
     <div class="login-wrapper">
-        <form class="login-content-wrapper" method="post" action="login"><h1>Nova<span>Wallet</span></h1>
+        <form class="login-content-wrapper" method="post" action="home"><h1>Nova<span>Wallet</span></h1>
             <div class="input-wrapper visually-hidden" hidden="">
                 <input class="input input-text" type="text"
                     id="login-username" autocomplete="new-password"

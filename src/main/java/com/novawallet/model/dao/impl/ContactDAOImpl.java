@@ -25,14 +25,17 @@ public class ContactDAOImpl extends DB implements ContactDAO {
         String email= contact.getEmail();
         int contactUserId= contact.getContactUserId();
         int ownerUserId= contact.getOwnerUserId();
-        Timestamp creationDate= contact.getCreationDate();
 
-        String sql="INSERT INTO contacts(first_name,last_name,email,contact_user_id,owner_user_id,creation_date)";
+        String sql="INSERT INTO contacts(first_name,last_name,email,contact_user_id,owner_user_id)";
         sql+=" VALUES('"+firstName+"','"+lastName+"','"+email+"',"+contactUserId+","
-                +ownerUserId+","+creationDate+")";
+                +ownerUserId+")";
 
-        int res = update(sql);
-        return res>0;
+        try {
+            int res = update(sql);
+            return res>0;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

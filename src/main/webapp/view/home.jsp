@@ -48,7 +48,7 @@
         <main class="home-content-wrapper">
             <section class="home-left"><h2 class="home-left-title home-title">Hello, ${name}</h2>
                 <div class="balance-wrapper"><h3 class="balance-title">your balance is:</h3>
-                    <h2 class="balance-subtitle">${currency} $${balance}</h2></div>
+                    <h2 class="balance-subtitle">${currency} ${balance}</h2></div>
                 <button id="button-credit-card" class="button icon-button credit-card-button"><i
                         class="fa fa-credit-card home-icon"></i></button>
                 <button id="button-exchange" class="button icon-button exchange-button"><i
@@ -64,7 +64,7 @@
                         <div class="history-item-wrapper">
                             <div class="history-item-title">
                                 <h3>${item.type}</h3>
-                                <h3>${item.amount}</h3>
+                                <h3>${item.symbol}${item.amount}</h3>
                             </div>
                             <p class="history-item-subtitle">${item.date}</p>
                         </div>

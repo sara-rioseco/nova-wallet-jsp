@@ -22,13 +22,16 @@ public class UserDAOImpl extends DB implements UserDAO {
         String lastName= user.getLastName();
         String email= user.getEmail();
         String password= user.getPassword();
-        Timestamp creationDate= user.getCreationDate();
 
-        String sql="INSERT INTO users(first_name,last_name,email,password,creation_date)";
-        sql+=" VALUES('"+firstName+"','"+lastName+"','"+email+"','"+password+"',"+creationDate+")";
+        String sql="INSERT INTO users(first_name,last_name,email,password)";
+        sql+=" VALUES('"+firstName+"','"+lastName+"','"+email+"','"+password+"')";
 
-        int res = update(sql);
-        return res>0;
+        try {
+            int res = update(sql);
+            return res>0;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

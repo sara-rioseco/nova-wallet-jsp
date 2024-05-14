@@ -34,7 +34,7 @@ public class Transaction {
                        int senderUserId, int senderAccountId, int receiverUserId,
                        int receiverAccountId) {
         this(0, amount, currencyId, transactionType, senderUserId, senderAccountId,
-                receiverUserId, receiverAccountId, Timestamp.from(Instant.from(LocalDateTime.now())));
+                receiverUserId, receiverAccountId, Timestamp.from(Instant.now()));
     }
 
     public int getId() {

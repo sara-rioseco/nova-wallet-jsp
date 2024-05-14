@@ -8,15 +8,19 @@ import com.novawallet.model.service.impl.CurrencyServiceImpl;
 
 
 import java.text.NumberFormat;
+import java.util.Locale;
+import java.util.Objects;
 
 import static com.novawallet.shared.Utils.*;
 
 public class TransactionDTO {
 
     private final int id;
+    private final String symbol;
     private final String amount;
     private final String currency;
     private final String type;
+    private final int currentUserId;
     private final int senderUserId;
     private final int senderAccountId;
     private final int receiverUserId;
@@ -24,13 +28,18 @@ public class TransactionDTO {
     private final String date;
 
 
-    public TransactionDTO(Transaction transaction) {
+    public TransactionDTO(Transaction transaction, int currentUserId) {
         CurrencyDAO currencyDAO = new CurrencyDAOImpl();
         CurrencyService currencyService = new CurrencyServiceImpl(currencyDAO);
 
         this.id = transaction.getId();
-        this.amount = NumberFormat.getCurrencyInstance().format(transaction.getAmount());
+        this.currentUserId = currentUserId;
         this.currency = currencyService.getCurrencyById(transaction.getCurrencyId()).getSymbol();
+        this.amount = NumberFormat.getCurrencyInstance(Objects.equals(currency, "USD") ? Locale.US : null).format(transaction.getAmount());
+        this.symbol = (String.valueOf(transaction.getTransactionType()) == "withdrawal"
+                || (String.valueOf(transaction.getTransactionType()) == "transfer"
+                    && currentUserId == transaction.getSenderUserId()))
+                ? "-" : "";
         this.type = capitalize(String.valueOf(transaction.getTransactionType()));
         this.senderUserId = transaction.getSenderUserId();
         this.senderAccountId = transaction.getSenderAccountId();
@@ -73,5 +82,13 @@ public class TransactionDTO {
 
     public String getDate() {
         return date;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public int getCurrentUserId() {
+        return currentUserId;
     }
 }

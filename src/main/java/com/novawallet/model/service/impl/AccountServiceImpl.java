@@ -26,8 +26,7 @@ public class AccountServiceImpl implements AccountService {
                 && account.getOwnerId() > 0
                 && account.getCurrencyId() > 0
                 && account.getBalance().compareTo(BigDecimal.ZERO) == 0
-                && account.getCreationDate() !=null
-                && account.getCreationDate().before(Timestamp.valueOf(LocalDateTime.now()))) {
+                ) {
             return accountDAO.addAccount(account);
         } else {
             System.out.println("Error creating account");

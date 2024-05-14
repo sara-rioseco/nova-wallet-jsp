@@ -31,12 +31,16 @@ public class TransactionDAOImpl extends DB implements TransactionDAO {
         Timestamp creationDate = transaction.getCreationDate();
 
         String sql= "INSERT INTO transactions(amount,currency_id,transaction_type,";
-        sql+="sender_user_id,sender_account_id,receiver_user_id,receiver_account_id,creation_date)";
+        sql+="sender_user_id,sender_account_id,receiver_user_id,receiver_account_id)";
         sql+=" VALUES("+amount+","+currencyId+","+transactionType+","+senderUserId+","
-                +senderAccountId+","+receiverUserId+","+receiverAccountId+","+creationDate+")";
+                +senderAccountId+","+receiverUserId+","+receiverAccountId+")";
 
-        int res = update(sql);
-        return res>0;
+        try {
+            int res = update(sql);
+            return res>0;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

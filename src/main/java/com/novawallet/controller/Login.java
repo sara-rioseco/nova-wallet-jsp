@@ -1,8 +1,11 @@
 package com.novawallet.controller;
 
 import java.io.*;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 
 import com.novawallet.model.dao.*;
 import com.novawallet.model.dao.impl.*;
@@ -20,7 +23,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "login", value = "/login")
+@WebServlet(name = "login", value = "/home")
 public class Login extends HttpServlet {
 
     private UserService userService;
@@ -50,13 +53,7 @@ public class Login extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html");
-
-        // Hello
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1> hola hola </h1>");
-        out.println("</body></html>");
+        response.sendRedirect("index.jsp");
     }
 
     @Override
@@ -70,7 +67,7 @@ public class Login extends HttpServlet {
         List<Transaction> transactions = transactionService.getTransactionsByUserId(user.getId());
         List<TransactionDTO> transactionsDTO = new ArrayList<TransactionDTO>();
         for (Transaction transaction : transactions) {
-            TransactionDTO dto = new TransactionDTO(transaction);
+            TransactionDTO dto = new TransactionDTO(transaction, user.getId());
             transactionsDTO.add(dto);
         }
 
@@ -85,27 +82,12 @@ public class Login extends HttpServlet {
             req.setAttribute("mail", user.getEmail());
             req.setAttribute("id", user.getId());
             req.setAttribute("currency", currency.getSymbol());
-            req.setAttribute("balance", account.getBalance());
+            req.setAttribute("balance", NumberFormat.getCurrencyInstance(Objects.equals(currency.getSymbol(), "USD") ? Locale.US : null).format(account.getBalance()));
             req.setAttribute("transactions", transactionsDTO);
         }
         String url = (isPasswordValid)?"view/home.jsp":"index.jsp";
         req.getRequestDispatcher(url).forward(req, resp);
 
-        // resp.sendRedirect(url);
-
-
-        // ------ HTML ------
-        //out.println("<html><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no\">"
-        //        +"<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH\" crossorigin=\"anonymous\">"
-        //        +"<title>NovaWallet</title></head><body data-bs-theme=\"dark\" class=\"container-sm d-flex flex-column justify-content-center align-items-center h-100\">");
-        // out.println("<main style=\"max-width: 800px\">");
-
-        // ------ Main ------
-        // out.print("<h1>name: " + mail + ", your pass word is: "+ (isPasswordValid?"valid":"invalid") + "</h1>");
-
-
-        // ------- Main ends here -------
-       // out.println("</main><script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js\"></script><script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz\" crossorigin=\"anonymous\"></script></body></html>");
     }
 
     public void destroy() {

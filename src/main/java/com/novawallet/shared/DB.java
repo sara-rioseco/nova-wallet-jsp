@@ -105,7 +105,7 @@ public abstract class DB {
             rs = stmt.executeQuery(sql);
             return rs;
         } catch (SQLException e) {
-            System.out.print(e.getMessage());
+            System.out.print("Error connecting to DB: " + e.getMessage());
             return null;
         }
     }
@@ -116,7 +116,7 @@ public abstract class DB {
             this.stmt= conn.createStatement();
             return stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            System.out.print(e.getMessage());
+            System.out.print("Error updating DB:" + e.getMessage());
             return 0;
         }
     }
