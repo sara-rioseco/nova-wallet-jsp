@@ -40,9 +40,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public boolean updateBalance(int id, String amt, TransactionType type) {
+    public boolean updateBalance(int id, BigDecimal amount, TransactionType type) {
         Account account = accountDAO.getAccountById(id);
-        BigDecimal amount = new BigDecimal(amt);
         if (id > 0
                 && account != null
                 && amount.compareTo(BigDecimal.ZERO) > 0

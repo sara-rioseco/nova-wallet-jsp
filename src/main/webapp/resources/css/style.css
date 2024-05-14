@@ -475,7 +475,7 @@ p.signup-text>span {
   font-weight: 500;
 }
 
-.deposit-content-wrapper>.input-wrapper,
+.deposit-content-wrapper>form>.input-wrapper,
 .input-wrapper>#deposit-amount {
   min-width: 200px;
   text-align: right;

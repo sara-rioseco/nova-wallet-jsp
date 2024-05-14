@@ -16,6 +16,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -62,6 +63,7 @@ public class SignUp extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
         String firstName = req.getParameter("firstname");
         String lastName = req.getParameter("lastname");
         String email = req.getParameter("email");
@@ -70,16 +72,17 @@ public class SignUp extends HttpServlet {
         User user = new User(firstName, lastName, email, hash);
         User newUser = null;
         Account newAccount = null;
+        boolean res = false;
         try {
             this.userService.createUser(user);
             newUser = this.userService.getUserByEmail(email);
             newAccount = new Account(newUser.getId(), 1);
-            this.accountService.createAccount(newAccount);
+            res = this.accountService.createAccount(newAccount);
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
 
-        if (newUser != null && newAccount != null) {
+        if (newUser != null && res) {
             req.setAttribute("name", newUser.getFirstName());
             req.setAttribute("last", newUser.getLastName());
             req.setAttribute("mail", newUser.getEmail());
@@ -87,12 +90,19 @@ public class SignUp extends HttpServlet {
             req.setAttribute("currency", currencyService.getCurrencyById(1).getSymbol());
             req.setAttribute("balance", NumberFormat.getCurrencyInstance(Objects.equals(currencyService.getCurrencyById(1).getSymbol(), "USD") ? Locale.US : null).format(newAccount.getBalance()));
             req.setAttribute("transactions", transactionsDTO);
+            session.setAttribute("name", newUser.getFirstName());
+            session.setAttribute("last", newUser.getLastName());
+            session.setAttribute("mail", newUser.getEmail());
+            session.setAttribute("userId", newUser.getId());
+            session.setAttribute("accountId", accountService.getAccountsByOwnerId(newUser.getId()).get(0).getId());
+            session.setAttribute("currency", currencyService.getCurrencyById(1).getSymbol());;
+            session.setAttribute("balance", NumberFormat.getCurrencyInstance(Objects.equals(currencyService.getCurrencyById(1).getSymbol(), "USD") ? Locale.US : null).format(accountService.getAccountsByOwnerId(newUser.getId()).get(0).getBalance()));
+            session.setAttribute("transactions", transactionsDTO);
         }
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
         String url = (newUser != null && newAccount != null) ? "view/home.jsp":"signup.jsp";
         req.getRequestDispatcher(url).forward(req, resp);
-
 
     }
 

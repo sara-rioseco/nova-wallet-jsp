@@ -29,18 +29,18 @@
 <div id="root" class="root">
     <div class="home-wrapper">
         <header>
-            <div class="header-container"><h1 class="logo">Nova<span>Wallet</span></h1>
+            <div class="header-container"><h1 class="logo"><a href="home">Nova<span>Wallet</span></a></h1>
                 <nav class="site-nav">
                     <button class="menu-toggle" aria-controls="primary-navigation" aria-expanded="false"><span
                             class="visually-hidden"></span>
                         <div class="hamburger" aria-hidden="true"></div>
                     </button>
                     <ul class="primary-navigation" id="primary-navigation" data-state="closed">
-                        <li>Home</li>
-                        <li>Deposit</li>
-                        <li>Send Money</li>
-                        <li>Transactions</li>
-                        <li>Logout</li>
+                        <a href="${pageContext.request.contextPath}/home"><li>Home</li></a>
+                        <a href="${pageContext.request.contextPath}/deposit"><li>Deposit</li></a>
+                        <a href="${pageContext.request.contextPath}/view/transfer.jsp"><li>Send Money</li></a>
+                        <a href="${pageContext.request.contextPath}/view/transactions.jsp"><li>Transactions</li></a>
+                        <a href="${pageContext.request.contextPath}/logout"><li>Logout</li></a>
                     </ul>
                 </nav>
             </div>
@@ -69,44 +69,16 @@
                             <p class="history-item-subtitle">${item.date}</p>
                         </div>
                     </c:forEach>
-<%--                    <div class="history-item-wrapper">--%>
-<%--                        <div class="history-item-title"><h3>Transfer</h3>--%>
-<%--                            <h3>-$300.00 </h3></div>--%>
-<%--                        <p class="history-item-subtitle">March 2, 2024</p></div>--%>
-<%--                    <div class="history-item-wrapper">--%>
-<%--                        <div class="history-item-title"><h3>Deposit</h3>--%>
-<%--                            <h3>$100.00 </h3></div>--%>
-<%--                        <p class="history-item-subtitle">March 1, 2024</p></div>--%>
-<%--                    <div class="history-item-wrapper">--%>
-<%--                        <div class="history-item-title"><h3>Deposit</h3>--%>
-<%--                            <h3>$500.00 </h3></div>--%>
-<%--                        <p class="history-item-subtitle">February 24, 2024</p></div>--%>
-<%--                    <div class="history-item-wrapper">--%>
-<%--                        <div class="history-item-title"><h3>Transfer</h3>--%>
-<%--                            <h3>-$200.00 </h3></div>--%>
-<%--                        <p class="history-item-subtitle">February 24, 2024</p></div>--%>
-<%--                    <div class="history-item-wrapper">--%>
-<%--                        <div class="history-item-title"><h3>Transfer</h3>--%>
-<%--                            <h3>-$500.00 </h3></div>--%>
-<%--                        <p class="history-item-subtitle">February 22, 2024</p></div>--%>
-<%--                    <div class="history-item-wrapper">--%>
-<%--                        <div class="history-item-title"><h3>Deposit</h3>--%>
-<%--                            <h3>$500.00 </h3></div>--%>
-<%--                        <p class="history-item-subtitle">February 22, 2024</p></div>--%>
-<%--                    <div class="history-item-wrapper">--%>
-<%--                        <div class="history-item-title"><h3>Deposit</h3>--%>
-<%--                            <h3>$500.00 </h3></div>--%>
-<%--                        <p class="history-item-subtitle">February 20, 2024</p></div>--%>
                 </section>
             </section>
         </main>
         <dialog class="modal msg-modal">
             <div class="wrapper dialog-wrapper"><h3 class="title">User information</h3>
-                <p>Name: Juanita
+                <p>Name: ${name}
 
-                    Lastname: Perez
+                    Lastname: ${last}
 
-                    Email: joanita@mail.com</p>
+                    Email: ${mail}</p>
                 <button class="button close-button">Ok</button>
             </div>
         </dialog>

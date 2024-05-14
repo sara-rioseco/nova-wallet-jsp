@@ -2,15 +2,11 @@ package com.novawallet.controller;
 
 import java.io.*;
 
-import com.novawallet.model.dao.AccountDAO;
-import com.novawallet.model.dao.UserDAO;
-import com.novawallet.model.dao.impl.AccountDAOImpl;
-import com.novawallet.model.dao.impl.UserDAOImpl;
+import com.novawallet.model.dao.*;
+import com.novawallet.model.dao.impl.*;
 import com.novawallet.model.entity.User;
-import com.novawallet.model.service.AccountService;
-import com.novawallet.model.service.UserService;
-import com.novawallet.model.service.impl.AccountServiceImpl;
-import com.novawallet.model.service.impl.UserServiceImpl;
+import com.novawallet.model.service.*;
+import com.novawallet.model.service.impl.*;
 import com.novawallet.shared.Bcrypt;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
@@ -21,10 +17,17 @@ import jakarta.servlet.annotation.*;
 @WebServlet(name = "withdraw", value = "/withdraw")
 public class Withdraw extends HttpServlet {
 
+
     private UserService userService;
     private UserDAO userDAO;
     private AccountService accountService;
     private AccountDAO accountDAO;
+    private CurrencyService currencyService;
+    private CurrencyDAO currencyDAO;
+    private TransactionService transactionService;
+    private TransactionDAO transactionDAO;
+    private ContactService contactService;
+    private ContactDAO contactDAO;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -33,5 +36,11 @@ public class Withdraw extends HttpServlet {
         userService= new UserServiceImpl(userDAO);
         accountDAO = new AccountDAOImpl();
         accountService = new AccountServiceImpl(accountDAO);
+        currencyDAO = new CurrencyDAOImpl();
+        currencyService = new CurrencyServiceImpl(currencyDAO);
+        transactionDAO = new TransactionDAOImpl();
+        transactionService = new TransactionServiceImpl(transactionDAO);
+        contactDAO = new ContactDAOImpl();
+        contactService = new ContactServiceImpl(contactDAO);
     }
 }

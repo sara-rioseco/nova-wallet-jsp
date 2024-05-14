@@ -1,21 +1,20 @@
 package com.novawallet.controller;
 
-import java.io.*;
-
 import com.novawallet.model.dao.*;
 import com.novawallet.model.dao.impl.*;
-import com.novawallet.model.entity.User;
 import com.novawallet.model.service.*;
 import com.novawallet.model.service.impl.*;
-import com.novawallet.shared.Bcrypt;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "transactions", value = "/transactions")
-public class Transactions extends HttpServlet {
+import java.io.IOException;
+
+@WebServlet(name = "logout", value = "/logout")
+public class Logout extends HttpServlet {
 
     private UserService userService;
     private UserDAO userDAO;
@@ -41,5 +40,12 @@ public class Transactions extends HttpServlet {
         transactionService = new TransactionServiceImpl(transactionDAO);
         contactDAO = new ContactDAOImpl();
         contactService = new ContactServiceImpl(contactDAO);
+    }
+
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.sendRedirect("index.jsp");
+    }
+
+    public void destroy() {
     }
 }

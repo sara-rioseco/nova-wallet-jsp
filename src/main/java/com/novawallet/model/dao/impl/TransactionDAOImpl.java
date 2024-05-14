@@ -23,16 +23,15 @@ public class TransactionDAOImpl extends DB implements TransactionDAO {
     public boolean addTransaction(Transaction transaction) {
         BigDecimal amount = transaction.getAmount();
         int currencyId = transaction.getCurrencyId();
-        TransactionType transactionType = transaction.getTransactionType();
+        String transactionType = transaction.getTransactionType().toString();
         int senderUserId = transaction.getSenderUserId();
         int senderAccountId = transaction.getSenderAccountId();
         int receiverUserId = transaction.getReceiverUserId();
         int receiverAccountId = transaction.getReceiverAccountId();
-        Timestamp creationDate = transaction.getCreationDate();
 
         String sql= "INSERT INTO transactions(amount,currency_id,transaction_type,";
-        sql+="sender_user_id,sender_account_id,receiver_user_id,receiver_account_id)";
-        sql+=" VALUES("+amount+","+currencyId+","+transactionType+","+senderUserId+","
+        sql+="sender_user_id,sender_account_id,receiver_user_id,receiver_account_id) ";
+        sql+=" VALUES("+amount+","+currencyId+",'"+transactionType+"',"+senderUserId+","
                 +senderAccountId+","+receiverUserId+","+receiverAccountId+")";
 
         try {
