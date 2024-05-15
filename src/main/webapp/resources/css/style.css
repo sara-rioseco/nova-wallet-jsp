@@ -637,6 +637,7 @@ button, .button {
 
 button.icon-button, .button.icon-button {
   padding: 1em;
+  cursor: pointer;
 }
 
 button:is(:hover, :focus-visible), .button:is(:hover, :focus-visible) {
@@ -650,6 +651,9 @@ button:active, .button:active {
   box-shadow: 0 2px 2px 0 var(--clr-transp-500);
 }
 
+.close-button {
+  cursor: pointer;
+}
 /* ------- Inputs ------- */
 
 .input {

@@ -32,9 +32,9 @@
             <div class="header-container">
                 <h1 class="logo"><a href="home">Nova<span>Wallet</span></a></h1>
                 <nav class="site-nav">
-                    <button class="menu-toggle" aria-controls="primary-navigation" aria-expanded="false"><span
+                    <button class="menu-toggle" id="menu-toggle" aria-controls="primary-navigation" aria-expanded="false"><span
                             class="visually-hidden"></span>
-                        <div class="hamburger" aria-hidden="true"></div>
+                        <div class="hamburger" id="hamburger" aria-hidden="true"></div>
                     </button>
                     <ul class="primary-navigation" id="primary-navigation" data-state="closed">
                         <a href="${pageContext.request.contextPath}/home"><li>Home</li></a>
@@ -51,14 +51,18 @@
             <section class="home-left"><h2 class="home-left-title home-title">Hello, ${name}</h2>
                 <div class="balance-wrapper"><h3 class="balance-title">your balance is:</h3>
                     <h2 class="balance-subtitle">${currency} ${balance}</h2></div>
-                <button id="button-credit-card" class="button icon-button credit-card-button"><i
-                        class="fa fa-credit-card home-icon"></i></button>
-                <button id="button-exchange" class="button icon-button exchange-button"><i
-                        class="fa fa-exchange home-icon"></i></button>
-                <button id="button-history" class="button icon-button history-button"><i
-                        class="fa fa-history home-icon"></i></button>
-                <button id="button-user" class="button icon-button user-button"><i class="fa fa-user home-icon"></i>
-                </button>
+                <a class="button icon-button credit-card-button" href="${pageContext.request.contextPath}/deposit"><div id="button-credit-card">
+                    <i class="fa fa-credit-card home-icon"></i>
+                </div></a>
+                <a class="button icon-button credit-card-button" href="${pageContext.request.contextPath}/transfer"><div id="button-exchange">
+                    <i class="fa fa-exchange home-icon"></i>
+                </div></a>
+                <a class="button icon-button credit-card-button" href="${pageContext.request.contextPath}/transactions"><div id="button-history">
+                    <i class="fa fa-history home-icon"></i>
+                </div></a>
+                <div id="button-user" class="button icon-button user-button">
+                    <i class="fa fa-user home-icon"></i>
+                </div>
             </section>
             <section class="home-right"><h3 class="home-right-title home-title">Recent Activity</h3>
                 <section class="home-history-wrapper">
@@ -74,14 +78,14 @@
                 </section>
             </section>
         </main>
-        <dialog class="modal msg-modal">
+        <dialog class="modal msg-modal" id="user-modal">
             <div class="wrapper dialog-wrapper"><h3 class="title">User information</h3>
                 <p>Name: ${name}
 
                     Lastname: ${last}
 
                     Email: ${mail}</p>
-                <button class="button close-button">Ok</button>
+                <button class="button close-button" id="user-modal-close">Ok</button>
             </div>
         </dialog>
         <footer>

@@ -42,7 +42,8 @@ public class Logout extends HttpServlet {
         contactService = new ContactServiceImpl(contactDAO);
     }
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        request.logout();
         response.sendRedirect("index.jsp");
     }
 

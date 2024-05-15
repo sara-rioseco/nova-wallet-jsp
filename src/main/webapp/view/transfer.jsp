@@ -28,6 +28,25 @@
 <body>
 <div id="root" class="root">
     <div class="transfer-wrapper">
+        <header>
+            <div class="header-container">
+                <h1 class="logo"><a href="${pageContext.request.contextPath}/home">Nova<span>Wallet</span></a></h1>
+                <nav class="site-nav">
+                    <button class="menu-toggle" id="menu-toggle" aria-controls="primary-navigation" aria-expanded="false"><span
+                            class="visually-hidden"></span>
+                        <div class="hamburger" id="hamburger" aria-hidden="true"></div>
+                    </button>
+                    <ul class="primary-navigation" id="primary-navigation" data-state="closed">
+                        <a href="${pageContext.request.contextPath}/home"><li>Home</li></a>
+                        <a href="${pageContext.request.contextPath}/deposit"><li>Deposit</li></a>
+                        <a href="${pageContext.request.contextPath}/withdraw"><li>Withdraw</li></a>
+                        <a href="${pageContext.request.contextPath}/transfer"><li>Send Money</li></a>
+                        <a href="${pageContext.request.contextPath}/transactions"><li>Transactions</li></a>
+                        <a href="${pageContext.request.contextPath}/logout"><li>Logout</li></a>
+                    </ul>
+                </nav>
+            </div>
+        </header>
         <main class="transfer-content-wrapper"><h2>Send Money</h2>
             <div class="input-wrapper"><input class="input input-text" type="text" id="contact-search"
                                               autocomplete="new-password" placeholder=" " name="contact"
@@ -57,25 +76,6 @@
                 </form>
             </section>
         </main>
-        <header>
-            <div class="header-container">
-                <h1 class="logo"><a href="${pageContext.request.contextPath}/home">Nova<span>Wallet</span></a></h1>
-                <nav class="site-nav">
-                    <button class="menu-toggle" aria-controls="primary-navigation" aria-expanded="false"><span
-                            class="visually-hidden"></span>
-                        <div class="hamburger" aria-hidden="true"></div>
-                    </button>
-                    <ul class="primary-navigation" id="primary-navigation" data-state="closed">
-                        <a href="${pageContext.request.contextPath}/home"><li>Home</li></a>
-                        <a href="${pageContext.request.contextPath}/deposit"><li>Deposit</li></a>
-                        <a href="${pageContext.request.contextPath}/withdraw"><li>Withdraw</li></a>
-                        <a href="${pageContext.request.contextPath}/transfer"><li>Send Money</li></a>
-                        <a href="${pageContext.request.contextPath}/transactions"><li>Transactions</li></a>
-                        <a href="${pageContext.request.contextPath}/logout"><li>Logout</li></a>
-                    </ul>
-                </nav>
-            </div>
-        </header>
         <dialog class="modal msg-modal">
             <div class="wrapper dialog-wrapper"><h3 class="title">Error</h3>
                 <p>Please select a contact</p>

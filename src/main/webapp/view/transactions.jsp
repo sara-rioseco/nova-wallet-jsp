@@ -31,9 +31,9 @@
             <div class="header-container">
                 <h1 class="logo"><a href="${pageContext.request.contextPath}/home">Nova<span>Wallet</span></a></h1>
                 <nav class="site-nav">
-                    <button class="menu-toggle" aria-controls="primary-navigation" aria-expanded="false"><span
+                    <button class="menu-toggle" id="menu-toggle" aria-controls="primary-navigation" aria-expanded="false"><span
                             class="visually-hidden"></span>
-                        <div class="hamburger" aria-hidden="true"></div>
+                        <div class="hamburger" id="hamburger" aria-hidden="true"></div>
                     </button>
                     <ul class="primary-navigation" id="primary-navigation" data-state="closed">
                         <a href="${pageContext.request.contextPath}/home"><li>Home</li></a>
