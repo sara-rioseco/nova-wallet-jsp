@@ -88,6 +88,7 @@ public class SignUp extends HttpServlet {
             req.setAttribute("mail", newUser.getEmail());
             req.setAttribute("id", newUser.getId());
             req.setAttribute("currency", currencyService.getCurrencyById(1).getSymbol());
+            req.setAttribute("balanceBD", accountService.getAccountById(accountService.getAccountsByOwnerId(newUser.getId()).get(0).getId()).getBalance());
             req.setAttribute("balance", NumberFormat.getCurrencyInstance(Objects.equals(currencyService.getCurrencyById(1).getSymbol(), "USD") ? Locale.US : null).format(newAccount.getBalance()));
             req.setAttribute("transactions", transactionsDTO);
             session.setAttribute("name", newUser.getFirstName());
@@ -95,7 +96,8 @@ public class SignUp extends HttpServlet {
             session.setAttribute("mail", newUser.getEmail());
             session.setAttribute("userId", newUser.getId());
             session.setAttribute("accountId", accountService.getAccountsByOwnerId(newUser.getId()).get(0).getId());
-            session.setAttribute("currency", currencyService.getCurrencyById(1).getSymbol());;
+            session.setAttribute("currency", currencyService.getCurrencyById(1).getSymbol());
+            session.setAttribute("balanceBD", accountService.getAccountById(accountService.getAccountsByOwnerId(newUser.getId()).get(0).getId()).getBalance());
             session.setAttribute("balance", NumberFormat.getCurrencyInstance(Objects.equals(currencyService.getCurrencyById(1).getSymbol(), "USD") ? Locale.US : null).format(accountService.getAccountsByOwnerId(newUser.getId()).get(0).getBalance()));
             session.setAttribute("transactions", transactionsDTO);
         }

@@ -78,6 +78,7 @@ public class Transfer extends HttpServlet {
             session.setAttribute("userId", user.getId());
             session.setAttribute("accountId", account.getId());
             session.setAttribute("currency", currency.getSymbol());
+            session.setAttribute("balanceBD", account.getBalance());
             session.setAttribute("balance", NumberFormat.getCurrencyInstance(Objects.equals(currency.getSymbol(), "USD") ? Locale.US : null).format(account.getBalance()));
             session.setAttribute("contacts", contactsDTO);
             request.setAttribute("name", user.getFirstName());
@@ -87,6 +88,7 @@ public class Transfer extends HttpServlet {
             request.setAttribute("accountId", account.getId());
             request.setAttribute("currency", currency.getSymbol());
             request.setAttribute("balance", NumberFormat.getCurrencyInstance(Objects.equals(currency.getSymbol(), "USD") ? Locale.US : null).format(account.getBalance()));
+            request.setAttribute("balanceBD", account.getBalance());
             request.setAttribute("contacts", contactsDTO);
 
             try {

@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c"  uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -47,7 +48,7 @@
                     </div>
                     <div class="input-wrapper">
                         <input class="input input-text" type="number" id="transfer-amount" autocomplete="new-password"
-                               placeholder=" " name="amount" required="" step="0.01" min="0.01" max="10000.01">
+                               placeholder=" " name="amount" required="" step="0.01" min="0.01" max="${balanceBD}">
                         <label class="label input-label" for="transfer-amount">
                             Enter amount
                         </label>

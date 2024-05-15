@@ -55,7 +55,7 @@
                 <div class="input-wrapper">
                     <input class="input input-text" type="number" id="withdraw-amount"
                            autocomplete="new-password" placeholder=" " name="amount" required=""
-                           step="0.01" min="0.01" max="10000.01">
+                           step="0.01" min="0.01" max="${balanceBD}">
                     <label class="label input-label" for="withdraw-amount">Enter amount</label>
                 </div>
                 <input class="button" type="submit" id="button-withdraw" value="Withdraw"/>
