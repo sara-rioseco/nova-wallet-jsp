@@ -19,7 +19,7 @@
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> -->
 
-    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
     <title>NovaWallet | Home</title>
     <script type="module" crossorigin="" src="<%= request.getContextPath() %>/resources/js/app.js"></script>
     <link rel="stylesheet" crossorigin="" href="<%= request.getContextPath() %>/resources/css/style.css" type="text/css">
@@ -29,7 +29,8 @@
 <div id="root" class="root">
     <div class="home-wrapper">
         <header>
-            <div class="header-container"><h1 class="logo"><a href="home">Nova<span>Wallet</span></a></h1>
+            <div class="header-container">
+                <h1 class="logo"><a href="home">Nova<span>Wallet</span></a></h1>
                 <nav class="site-nav">
                     <button class="menu-toggle" aria-controls="primary-navigation" aria-expanded="false"><span
                             class="visually-hidden"></span>
@@ -38,8 +39,9 @@
                     <ul class="primary-navigation" id="primary-navigation" data-state="closed">
                         <a href="${pageContext.request.contextPath}/home"><li>Home</li></a>
                         <a href="${pageContext.request.contextPath}/deposit"><li>Deposit</li></a>
-                        <a href="${pageContext.request.contextPath}/view/transfer.jsp"><li>Send Money</li></a>
-                        <a href="${pageContext.request.contextPath}/view/transactions.jsp"><li>Transactions</li></a>
+                        <a href="${pageContext.request.contextPath}/withdraw"><li>Withdraw</li></a>
+                        <a href="${pageContext.request.contextPath}/transfer"><li>Send Money</li></a>
+                        <a href="${pageContext.request.contextPath}/transactions"><li>Transactions</li></a>
                         <a href="${pageContext.request.contextPath}/logout"><li>Logout</li></a>
                     </ul>
                 </nav>

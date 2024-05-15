@@ -17,33 +17,36 @@
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> -->
 
-    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
     <title>NovaWallet | Deposit</title>
-    <script type="module" crossorigin="" src="../resources/js/app.js"></script>
-    <link rel="stylesheet" crossorigin="" href="../resources/css/style.css">
+    <script type="module" crossorigin="" src="<%= request.getContextPath() %>/resources/js/app.js"></script>
+    <link rel="stylesheet" crossorigin="" href="<%= request.getContextPath() %>/resources/css/style.css" type="text/css">
 </head>
 
 <body>
 <div id="root" class="root">
     <div class="deposit-wrapper">
         <header>
-            <div class="header-container"><h1 class="logo">Nova<span>Wallet</span></h1>
+            <div class="header-container">
+                <h1 class="logo"><a href="${pageContext.request.contextPath}/home">Nova<span>Wallet</span></a></h1>
                 <nav class="site-nav">
                     <button class="menu-toggle" aria-controls="primary-navigation" aria-expanded="false"><span
                             class="visually-hidden"></span>
                         <div class="hamburger" aria-hidden="true"></div>
                     </button>
                     <ul class="primary-navigation" id="primary-navigation" data-state="closed">
-                        <li>Home</li>
-                        <li>Deposit</li>
-                        <li>Send Money</li>
-                        <li>Transactions</li>
-                        <li>Logout</li>
+                        <a href="${pageContext.request.contextPath}/home"><li>Home</li></a>
+                        <a href="${pageContext.request.contextPath}/deposit"><li>Deposit</li></a>
+                        <a href="${pageContext.request.contextPath}/withdraw"><li>Withdraw</li></a>
+                        <a href="${pageContext.request.contextPath}/transfer"><li>Send Money</li></a>
+                        <a href="${pageContext.request.contextPath}/transactions"><li>Transactions</li></a>
+                        <a href="${pageContext.request.contextPath}/logout"><li>Logout</li></a>
                     </ul>
                 </nav>
             </div>
         </header>
-        <main class="deposit-content-wrapper"><h2>Add funds to your account</h2>
+        <main class="deposit-content-wrapper">
+            <h2>Add funds to your account</h2>
             <div class="deposit-balance-div">
                 <div class="balance-wrapper"><h3 class="balance-title">your balance is:</h3>
                     <h2 class="balance-subtitle">${currency} ${balance}</h2></div>

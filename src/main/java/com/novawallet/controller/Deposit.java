@@ -60,7 +60,6 @@ public class Deposit extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("I'm in the doPost now");
         HttpSession session = req.getSession();
         int userId = (int) session.getAttribute("userId");
         User user = userService.getUserById(userId);
@@ -70,7 +69,6 @@ public class Deposit extends HttpServlet {
         String amount = req.getParameter("amount");
         BigDecimal BDAmount = new BigDecimal(amount);
         Transaction transaction = null;
-        System.out.println("user here: " + user);
         try {
             account = accountService.getAccountsByOwnerId(user.getId()).get(0);
             boolean res = accountService.updateBalance(account.getId(), BDAmount, TransactionType.deposit);

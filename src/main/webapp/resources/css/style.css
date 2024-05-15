@@ -270,6 +270,7 @@ p.signup-text>span {
 
 .home-wrapper,
 .deposit-wrapper,
+.withdraw-wrapper,
 .transfer-wrapper,
 .transactions-wrapper {
   width: 100vw;
@@ -281,6 +282,7 @@ p.signup-text>span {
 
 .home-content-wrapper,
 .deposit-content-wrapper,
+.withdraw-content-wrapper,
 .transfer-content-wrapper,
 .transactions-content-wrapper {
   display: flex;
@@ -464,24 +466,29 @@ p.signup-text>span {
   font-weight: 500;
 }
 
-.deposit-content-wrapper {
+.deposit-content-wrapper,
+.withdraw-content-wrapper {
   display: flex;
   gap: 1em;
   padding: 1em;
 }
 
-.deposit-content-wrapper>:is(h2) {
+.deposit-content-wrapper>:is(h2),
+.withdraw-content-wrapper>:is(h2)  {
   font-size: var(--fs-400);
   font-weight: 500;
 }
 
 .deposit-content-wrapper>form>.input-wrapper,
-.input-wrapper>#deposit-amount {
+.withdraw-content-wrapper>form>.input-wrapper,
+.input-wrapper>#deposit-amount,
+.input-wrapper>#withdraw-amount{
   min-width: 200px;
   text-align: right;
 }
 
-.deposit-balance-div {
+.deposit-balance-div,
+.withdraw-balance-div {
   width: fit-content;
 }
 
@@ -496,11 +503,13 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-.deposit-content-wrapper>.input-wrapper {
+.deposit-content-wrapper>.input-wrapper,
+.withdraw-content-wrapper>.input-wrapper {
   margin-top: 0.6em;
 }
 
-.deposit-content-wrapper>.balance-wrapper {
+.deposit-content-wrapper>.balance-wrapper,
+.withdraw-content-wrapper>.balance-wrapper {
   width: min(400px, 80vw);
   background-color: var(--clr-primary-700);
 }
@@ -1007,6 +1016,7 @@ header::after {
 
   .home-content-wrapper,
   .deposit-content-wrapper,
+  .withdraw-content-wrapper,
   .transfer-content-wrapper,
   .transactions-content-wrapper {
     min-width: 600px;

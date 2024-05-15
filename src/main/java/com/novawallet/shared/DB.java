@@ -111,7 +111,6 @@ public abstract class DB {
     }
 
     protected int update(String sql) {
-        System.out.println("sql str here: " + sql);
         try {
             connect();
             this.stmt= conn.createStatement();
