@@ -18,10 +18,10 @@
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> -->
 
-    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
     <title>NovaWallet | Send Money</title>
-    <script type="module" crossorigin="" src="../resources/js/app.js"></script>
-    <link rel="stylesheet" crossorigin="" href="../resources/css/style.css">
+    <script type="module" crossorigin="" src="<%= request.getContextPath() %>/resources/js/app.js"></script>
+    <link rel="stylesheet" crossorigin="" href="<%= request.getContextPath() %>/resources/css/style.css" type="text/css">
 </head>
 
 <body>
@@ -33,25 +33,27 @@
                                               required=""><label class="label input-label" for="contact-search">Search
                 contact</label></div>
             <section class="contacts-wrapper">
-                <form class="contacts-list">
+                <form method="post" action="transfer" style="display:contents;">
+                    <div class="contacts-list">
                     <c:forEach items="${contacts}" var="item">
                         <div class="contact-wrapper">
-                            <input type="radio" id="contact-${item.id}" name="contact" value="${item.name} ${item.last}" class="contact-item contact-${item.id}" style="display: none;">
+                            <input type="radio" id="contact-${item.id}" name="contact" value="${item.id}" class="contact-item contact-${item.id}" style="display: none;" required>
                             <label class="contact-label" for="contact-${item.id}">
                                 ${item.name} ${item.last}
                                 <span>${item.mail}</span>
                             </label>
                         </div>
                     </c:forEach>
+                    </div>
+                    <div class="input-wrapper">
+                        <input class="input input-text" type="number" id="transfer-amount" autocomplete="new-password"
+                               placeholder=" " name="amount" required="" step="0.01" min="0.01" max="10000.01">
+                        <label class="label input-label" for="transfer-amount">
+                            Enter amount
+                        </label>
+                    </div>
+                    <input class="button" type="submit" id="button-SendMoney" value="Send Money"/>
                 </form>
-                <div class="input-wrapper">
-                    <input class="input input-text" type="number" id="transfer-amount" autocomplete="new-password"
-                           placeholder=" " name="amount" required="" step="0.01" min="0.01" max="10000.01">
-                    <label class="label input-label" for="transfer-amount">
-                        Enter amount
-                    </label>
-                </div>
-                <button id="button-SendMoney">Send Money</button>
             </section>
         </main>
         <header>

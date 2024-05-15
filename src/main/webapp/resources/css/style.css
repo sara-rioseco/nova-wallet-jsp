@@ -560,7 +560,7 @@ input[type=number] {
   color: var(--clr-primary-800);
   font-weight: 500;
   font-size: var(--fs-300);
-  white-space: pre-line;
+  display: grid;
   padding-inline: 2em;
 }
 

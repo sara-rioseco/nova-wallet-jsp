@@ -68,7 +68,7 @@ public class Withdraw extends HttpServlet {
         Transaction transaction = null;
         try {
             account = accountService.getAccountsByOwnerId(user.getId()).get(0);
-            boolean res = accountService.updateBalance(account.getId(), BDAmount, TransactionType.withdrawal);
+            boolean res = accountService.updateBalance(account.getId(), BDAmount, TransactionType.withdrawal, true);
             transaction = new Transaction(BDAmount, account.getCurrencyId(), TransactionType.withdrawal, user.getId(), account.getId(),user.getId(),account.getId());
             boolean transactionRes = transactionService.createTransaction(transaction);
         } catch (Exception e) {

@@ -40,16 +40,16 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public boolean updateBalance(int id, BigDecimal amount, TransactionType type) {
+    public boolean updateBalance(int id, BigDecimal amount, TransactionType type, boolean ownerUser) {
         Account account = accountDAO.getAccountById(id);
         if (id > 0
                 && account != null
                 && amount.compareTo(BigDecimal.ZERO) > 0
                 && (type == deposit || type == withdrawal || type == transfer)) {
-            if (type == transfer || type == withdrawal) {
+            if ((type == transfer && ownerUser)|| type == withdrawal) {
                 account.subtractBalance(amount);
             }
-            if(type == deposit) {
+            if((type == transfer && !ownerUser)|| type == deposit) {
                 account.addBalance(amount);
             }
             return accountDAO.updateAccount(account);

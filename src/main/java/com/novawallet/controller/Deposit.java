@@ -71,7 +71,7 @@ public class Deposit extends HttpServlet {
         Transaction transaction = null;
         try {
             account = accountService.getAccountsByOwnerId(user.getId()).get(0);
-            boolean res = accountService.updateBalance(account.getId(), BDAmount, TransactionType.deposit);
+            boolean res = accountService.updateBalance(account.getId(), BDAmount, TransactionType.deposit, true);
             transaction = new Transaction(BDAmount, account.getCurrencyId(), TransactionType.deposit, user.getId(), account.getId(),user.getId(),account.getId());
             boolean transactionRes = transactionService.createTransaction(transaction);
         } catch (Exception e) {
