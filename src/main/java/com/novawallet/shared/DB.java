@@ -20,20 +20,22 @@ public abstract class DB {
         // MODIFICAR CREDENCIALES
         String user = "root";
         String pass = "admin";
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
+        if (stmt == null) {
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
 
-            String stringConnection = "jdbc:mysql://localhost:3306/"+ schemaName;
-            conn = DriverManager.getConnection(stringConnection, user, pass);
-            stmt = conn.createStatement();
-            System.out.println("DB connection: ON");
-        } catch (ClassNotFoundException ex)  {
-            System.out.println("Driver not found");
-        } catch (SQLException ex) {
-            System.out.println("There was an error.");
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("ErrorCode: " + ex.getErrorCode());
+                String stringConnection = "jdbc:mysql://localhost:3306/" + schemaName;
+                conn = DriverManager.getConnection(stringConnection, user, pass);
+                stmt = conn.createStatement();
+                System.out.println("DB connection: ON");
+            } catch (ClassNotFoundException ex) {
+                System.out.println("Driver not found");
+            } catch (SQLException ex) {
+                System.out.println("There was an error.");
+                System.out.println("SQLException: " + ex.getMessage());
+                System.out.println("SQLState: " + ex.getSQLState());
+                System.out.println("ErrorCode: " + ex.getErrorCode());
+            }
         }
     }
 

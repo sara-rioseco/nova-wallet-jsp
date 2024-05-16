@@ -9,10 +9,7 @@ import com.novawallet.model.dao.impl.CurrencyDAOImpl;
 import com.novawallet.model.dao.impl.UserDAOImpl;
 import com.novawallet.model.entity.Transaction;
 import com.novawallet.model.service.TransactionService;
-
 import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.novawallet.model.entity.TransactionType.*;

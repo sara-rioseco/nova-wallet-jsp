@@ -3,9 +3,6 @@ package com.novawallet.model.service.impl;
 import com.novawallet.model.dao.CurrencyDAO;
 import com.novawallet.model.entity.Currency;
 import com.novawallet.model.service.CurrencyService;
-
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class CurrencyServiceImpl implements CurrencyService {

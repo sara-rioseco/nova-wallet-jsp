@@ -2,7 +2,6 @@ package com.novawallet.model.entity;
 
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDateTime;
 
 public class User {
     private int id;
@@ -10,7 +9,7 @@ public class User {
     private String lastName;
     private String email;
     private String password;
-    private final Timestamp creationDate; // maybe cambiar a java.sql.timestamp en dao o service
+    private final Timestamp creationDate;
 
 
     public User(int id, String firstName, String lastName, String email, String password, Timestamp creationDate) {
@@ -73,5 +72,4 @@ public class User {
     public Timestamp getCreationDate() {
         return creationDate;
     }
-
 }

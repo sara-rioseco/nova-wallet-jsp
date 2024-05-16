@@ -3,7 +3,6 @@ package com.novawallet.model.dao.impl;
 import com.novawallet.model.dao.AccountDAO;
 import com.novawallet.model.entity.Account;
 import com.novawallet.shared.DB;
-
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,10 +20,8 @@ public class AccountDAOImpl extends DB implements AccountDAO {
     public boolean addAccount(Account account) {
         int ownerId = account.getOwnerId();
         int currencyId = account.getCurrencyId();
-
         String sql="INSERT INTO accounts(owner_id, currency_id)";
         sql+=" VALUES("+ownerId+","+currencyId+")";
-
         try {
             int res = update(sql);
             return res>0;
@@ -97,11 +94,9 @@ public class AccountDAOImpl extends DB implements AccountDAO {
     public boolean updateAccount(Account account) {
         int id = account.getId();
         BigDecimal balance = account.getBalance();
-
         String sql = "UPDATE accounts SET ";
         sql+="balance="+balance;
         sql+=" WHERE id="+id;
-
         int res = update(sql);
         return res>0;
     }

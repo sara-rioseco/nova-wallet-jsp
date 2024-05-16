@@ -16,6 +16,7 @@ public class ContactDTO {
     private final String date;
 
     public ContactDTO(Contact contact, int currentUserId){
+        System.out.println("creating contact dto with this contact id: " + contact.getId());
         this.currentUserId = currentUserId;
         this.id = contact.getId();
         this.name = capitalize(contact.getFirstName());

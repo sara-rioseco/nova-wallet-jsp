@@ -24,7 +24,6 @@ import jakarta.servlet.annotation.*;
 @WebServlet(name = "deposit", value = "/deposit")
 public class Deposit extends HttpServlet {
 
-
     private UserService userService;
     private UserDAO userDAO;
     private AccountService accountService;
@@ -52,9 +51,6 @@ public class Deposit extends HttpServlet {
     }
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession session = request.getSession();
-        Object mail = session.getAttribute("mail");
-        Object balance = session.getAttribute("balance");
         response.sendRedirect("view/deposit.jsp");
     }
 

@@ -39,6 +39,11 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
+    public int getContactUserIdByContactId(int id) {
+        return contactDAO.getContactUserIdByContactId(id);
+    }
+
+    @Override
     public boolean updateContact(Contact contact) {
         if (contact != null
                 && contactDAO.getContactById(contact.getId()) != null

@@ -3,7 +3,6 @@ package com.novawallet.model.dao.impl;
 import com.novawallet.model.dao.UserDAO;
 import com.novawallet.model.entity.User;
 import com.novawallet.shared.DB;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -22,10 +21,8 @@ public class UserDAOImpl extends DB implements UserDAO {
         String lastName= user.getLastName();
         String email= user.getEmail();
         String password= user.getPassword();
-
         String sql="INSERT INTO users(first_name,last_name,email,password)";
         sql+=" VALUES('"+firstName+"','"+lastName+"','"+email+"','"+password+"')";
-
         try {
             int res = update(sql);
             return res>0;
@@ -102,13 +99,9 @@ public class UserDAOImpl extends DB implements UserDAO {
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
         String password = user.getPassword();
-
         String sql = "UPDATE users SET ";
-        sql+="first_name='"+firstName+"', ";
-        sql+="last_name='"+lastName+"', ";
-        sql+="password='"+password+"', ";
-        sql+=" WHERE id="+id;
-
+        sql+="first_name='"+firstName+"', last_name='"+lastName+"', ";
+        sql+="password='"+password+"', WHERE id="+id;
         int res = update(sql);
         return res>0;
     }

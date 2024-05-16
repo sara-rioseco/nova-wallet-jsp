@@ -1,7 +1,6 @@
 package com.novawallet.model.dao;
 
 import com.novawallet.model.entity.User;
-
 import java.util.List;
 
 public interface UserDAO {

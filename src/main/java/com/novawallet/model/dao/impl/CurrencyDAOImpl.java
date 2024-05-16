@@ -2,12 +2,9 @@ package com.novawallet.model.dao.impl;
 
 import com.novawallet.model.dao.CurrencyDAO;
 import com.novawallet.model.entity.Currency;
-import com.novawallet.model.entity.User;
 import com.novawallet.shared.DB;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,10 +18,8 @@ public class CurrencyDAOImpl extends DB implements CurrencyDAO {
     public boolean addCurrency(Currency currency) {
         String name= currency.getName();
         String symbol= currency.getSymbol();
-
         String sql="INSERT INTO currencies(name,symbol)";
         sql+=" VALUES('"+name+"','"+symbol+"')";
-
         try {
             int res = update(sql);
             return res>0;
@@ -90,11 +85,9 @@ public class CurrencyDAOImpl extends DB implements CurrencyDAO {
     public boolean updateCurrency(Currency currency) {
         int id = currency.getId();
         String name = currency.getName();
-
         String sql = "UPDATE currencies SET ";
         sql+="name='"+name+"', ";
         sql+=" WHERE id="+id;
-
         int res = update(sql);
         return res>0;
     }

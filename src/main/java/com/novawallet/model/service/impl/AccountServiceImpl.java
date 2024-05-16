@@ -4,10 +4,7 @@ import com.novawallet.model.dao.AccountDAO;
 import com.novawallet.model.entity.Account;
 import com.novawallet.model.entity.TransactionType;
 import com.novawallet.model.service.AccountService;
-
 import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.novawallet.model.entity.TransactionType.*;
@@ -42,6 +39,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public boolean updateBalance(int id, BigDecimal amount, TransactionType type, boolean ownerUser) {
         Account account = accountDAO.getAccountById(id);
+        System.out.println("Updating account balance, account id: " + id + ", amount: " + amount.toString() + ", type: " + type + ", owner: " + ownerUser );
         if (id > 0
                 && account != null
                 && amount.compareTo(BigDecimal.ZERO) > 0

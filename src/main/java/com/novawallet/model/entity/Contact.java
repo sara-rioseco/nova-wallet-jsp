@@ -9,8 +9,8 @@ public class Contact {
     private String firstName;
     private String lastName;
     private String email;
-    private int contactUserId;
-    private int ownerUserId;
+    private final int contactUserId;
+    private final int ownerUserId;
     private final Timestamp creationDate;
 
     public Contact(int id, String firstName, String lastName, String email, int contactUserId, int ownerUserId, Timestamp creationDate) {
@@ -68,16 +68,8 @@ public class Contact {
         return contactUserId;
     }
 
-    public void setContactUserId(int contactUserId) {
-        this.contactUserId = contactUserId;
-    }
-
     public int getOwnerUserId() {
         return ownerUserId;
-    }
-
-    public void setOwnerUserId(int ownerUserId) {
-        this.ownerUserId = ownerUserId;
     }
 
     public Timestamp getCreationDate() {

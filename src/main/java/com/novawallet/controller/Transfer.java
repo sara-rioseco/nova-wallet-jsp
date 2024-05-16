@@ -101,15 +101,14 @@ public class Transfer extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("I'm in doPost here now");
         HttpSession session = req.getSession();
         int userId = (int) session.getAttribute("userId");
         User user = userService.getUserById(userId);
         int accountId = (int) session.getAttribute("accountId");
         Account senderAccount = accountService.getAccountById(accountId);
-        Object name = session.getAttribute("name");
         String amount = req.getParameter("amount");
-        int receiverUserId = parseInt(req.getParameter("contact"));
+        int receiverContactId = parseInt(req.getParameter("contact"));
+        int receiverUserId = contactService.getContactUserIdByContactId(receiverContactId);
         int receiverAccountId = accountService.getAccountsByOwnerId(receiverUserId).get(0).getId();
         Account receiverAccount = accountService.getAccountById(receiverAccountId);
         BigDecimal BDAmount = new BigDecimal(amount);
@@ -123,18 +122,10 @@ public class Transfer extends HttpServlet {
         } catch (Exception e) {
             System.out.println("Error creating deposit: " + e.getMessage());
         }
-
-
         assert senderAccount != null;
         req.setAttribute("balance", senderAccount.getBalance());
         session.setAttribute("balance", senderAccount.getBalance());
-
-        resp.setContentType("text/html");
-        PrintWriter out = resp.getWriter();
-        req.setAttribute("balance", senderAccount.getBalance());
-        session.setAttribute("balance", senderAccount.getBalance());
         req.getRequestDispatcher("home").forward(req, resp);
-//        resp.sendRedirect("view/home.jsp");
     }
 
     public void destroy() {

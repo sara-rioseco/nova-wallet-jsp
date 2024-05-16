@@ -1,7 +1,6 @@
 package com.novawallet.model.dao;
 
 import com.novawallet.model.entity.Currency;
-
 import java.util.List;
 
 public interface CurrencyDAO {

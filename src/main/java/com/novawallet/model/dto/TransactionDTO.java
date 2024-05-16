@@ -31,7 +31,6 @@ public class TransactionDTO {
     public TransactionDTO(Transaction transaction, int currentUserId) {
         CurrencyDAO currencyDAO = new CurrencyDAOImpl();
         CurrencyService currencyService = new CurrencyServiceImpl(currencyDAO);
-
         this.id = transaction.getId();
         this.currentUserId = currentUserId;
         this.currency = currencyService.getCurrencyById(transaction.getCurrencyId()).getSymbol();

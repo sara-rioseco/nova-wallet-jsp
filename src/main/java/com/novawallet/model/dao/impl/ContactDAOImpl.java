@@ -2,10 +2,7 @@ package com.novawallet.model.dao.impl;
 
 import com.novawallet.model.dao.ContactDAO;
 import com.novawallet.model.entity.Contact;
-import com.novawallet.model.entity.User;
 import com.novawallet.shared.DB;
-
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -29,7 +26,6 @@ public class ContactDAOImpl extends DB implements ContactDAO {
         String sql="INSERT INTO contacts(first_name,last_name,email,contact_user_id,owner_user_id)";
         sql+=" VALUES('"+firstName+"','"+lastName+"','"+email+"',"+contactUserId+","
                 +ownerUserId+")";
-
         try {
             int res = update(sql);
             return res>0;
@@ -84,6 +80,11 @@ public class ContactDAOImpl extends DB implements ContactDAO {
     }
 
     @Override
+    public int getContactUserIdByContactId(int id) {
+        return getContactById(id).getContactUserId();
+    }
+
+    @Override
     public Contact getContactById(int id) {
         Contact contact = null;
         String sql="SELECT * FROM contacts WHERE id="+id;
@@ -110,13 +111,9 @@ public class ContactDAOImpl extends DB implements ContactDAO {
         String firstName = contact.getFirstName();
         String lastName = contact.getLastName();
         String email = contact.getEmail();
-
-        String sql = "UPDATE contacts SET ";
-        sql+="first_name='"+firstName+"', ";
-        sql+="last_name='"+lastName+"', ";
-        sql+="email='"+email+"', ";
+        String sql = "UPDATE contacts SET first_name='"+firstName+"', ";
+        sql+="last_name='"+lastName+"', email='"+email+"', ";
         sql+=" WHERE id="+id;
-
         int res = update(sql);
         return res>0;
     }

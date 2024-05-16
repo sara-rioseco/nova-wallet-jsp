@@ -1,19 +1,19 @@
 // ------ Hamburger menu feature -------
-const bttn = document.getElementById("menu-toggle");
+const hamButton = document.getElementById("menu-toggle");
 const list = document.getElementById("primary-navigation")
 
-bttn.addEventListener('click', () => {
-    const isOpened = bttn.getAttribute('aria-expanded') === 'true';
+hamButton.addEventListener('click', () => {
+    const isOpened = hamButton.getAttribute('aria-expanded') === 'true';
     isOpened ? closeMenu() : openMenu();
 });
 
 function openMenu() {
-    bttn.setAttribute('aria-expanded', 'true');
+    hamButton.setAttribute('aria-expanded', 'true');
     list.setAttribute('data-state', 'opened');
 }
 
 function closeMenu() {
-    bttn.setAttribute('aria-expanded', 'false');
+    hamButton.setAttribute('aria-expanded', 'false');
     list.setAttribute('data-state', 'closing');
 
     list.addEventListener(
@@ -25,16 +25,14 @@ function closeMenu() {
 
 // ------ Modals ------
 
-const bttnUser = document.getElementById("button-user");
+const buttonUser = document.getElementById("button-user");
 const userModal = document.getElementById("user-modal");
-const bttnUserModalClose = document.getElementById("user-modal-close");
-bttnUser.addEventListener("click", (e) => {
+const buttonUserModalClose = document.getElementById("user-modal-close");
+buttonUser.addEventListener("click", (e) => {
     e.preventDefault();
     userModal.showModal();
 })
-bttnUserModalClose.addEventListener("click", (e ) => {
+buttonUserModalClose.addEventListener("click", (e ) => {
     e.preventDefault();
     userModal.close();
 })
-
-console.log("Hola, estoy corriendo JS")

@@ -1,11 +1,9 @@
 package com.novawallet.model.dao.impl;
 
 import com.novawallet.model.dao.TransactionDAO;
-import com.novawallet.model.entity.Account;
 import com.novawallet.model.entity.Transaction;
 import com.novawallet.model.entity.TransactionType;
 import com.novawallet.shared.DB;
-
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;

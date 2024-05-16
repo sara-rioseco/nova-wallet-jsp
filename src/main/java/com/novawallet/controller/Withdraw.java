@@ -21,7 +21,6 @@ import jakarta.servlet.annotation.*;
 @WebServlet(name = "withdraw", value = "/withdraw")
 public class Withdraw extends HttpServlet {
 
-
     private UserService userService;
     private UserDAO userDAO;
     private AccountService accountService;
@@ -49,9 +48,6 @@ public class Withdraw extends HttpServlet {
     }
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession session = request.getSession();
-        Object mail = session.getAttribute("mail");
-        Object balance = session.getAttribute("balance");
         response.sendRedirect("view/withdraw.jsp");
     }
 
@@ -74,7 +70,6 @@ public class Withdraw extends HttpServlet {
         } catch (Exception e) {
             System.out.println("Error creating withdrawal: " + e.getMessage());
         }
-
 
         assert account != null;
         req.setAttribute("balance", account.getBalance());

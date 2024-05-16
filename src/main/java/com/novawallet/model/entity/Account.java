@@ -3,12 +3,11 @@ package com.novawallet.model.entity;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDateTime; // maybe cambiar a java.sql.timestamp
 
 public class Account {
     private int id;
-    private int ownerId;
-    private int currencyId;
+    private final int ownerId;
+    private final int currencyId;
     private BigDecimal balance;
     private final Timestamp creationDate;
 
@@ -36,16 +35,8 @@ public class Account {
         return ownerId;
     }
 
-    public void setOwnerId(int ownerId) {
-        this.ownerId = ownerId;
-    }
-
     public int getCurrencyId() {
         return currencyId;
-    }
-
-    public void setCurrencyId(int currencyId) {
-        this.currencyId = currencyId;
     }
 
     public BigDecimal getBalance() {

@@ -2,8 +2,6 @@ package com.novawallet.model.service;
 
 import com.novawallet.model.entity.Account;
 import com.novawallet.model.entity.TransactionType;
-import com.novawallet.model.entity.User;
-
 import java.math.BigDecimal;
 import java.util.List;
 

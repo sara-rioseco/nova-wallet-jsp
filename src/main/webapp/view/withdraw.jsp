@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: sarar
-  Date: 13-05-2024
-  Time: 15:47
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -14,9 +7,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1">
     <meta name="description"
           content="An e-wallet that allows the user to manage, transfer and withdraw money in a convenient and easy way.">
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> -->
-
     <link rel="icon" href="../favicon.ico" type="image/x-icon">
     <title>NovaWallet | Withdrawal</title>
     <script type="module" crossorigin="" src="<%= request.getContextPath() %>/resources/js/app.js"></script>
@@ -46,7 +36,7 @@
             </div>
         </header>
         <main class="withdraw-content-wrapper">
-            <h2>Withdraw funds from your account</h2>
+            <h2>Withdraw from your account</h2>
             <div class="withdraw-balance-div">
                 <div class="balance-wrapper"><h3 class="balance-title">your balance is:</h3>
                     <h2 class="balance-subtitle">${currency} ${balance}</h2></div>
@@ -78,12 +68,5 @@
         </footer>
     </div>
 </div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-  crossorigin="anonymous"></script> -->
-
-
 </body>
 </html>

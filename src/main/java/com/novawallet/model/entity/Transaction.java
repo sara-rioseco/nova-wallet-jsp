@@ -3,7 +3,6 @@ package com.novawallet.model.entity;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDateTime;
 
 public class Transaction {
     private int id;

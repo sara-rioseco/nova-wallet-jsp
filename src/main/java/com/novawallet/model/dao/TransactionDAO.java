@@ -1,8 +1,6 @@
 package com.novawallet.model.dao;
 
-import com.novawallet.model.entity.Contact;
 import com.novawallet.model.entity.Transaction;
-
 import java.util.List;
 
 public interface TransactionDAO {
