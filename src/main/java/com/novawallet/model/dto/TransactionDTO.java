@@ -35,8 +35,8 @@ public class TransactionDTO {
         this.currentUserId = currentUserId;
         this.currency = currencyService.getCurrencyById(transaction.getCurrencyId()).getSymbol();
         this.amount = NumberFormat.getCurrencyInstance(Objects.equals(currency, "USD") ? Locale.US : null).format(transaction.getAmount());
-        this.symbol = (String.valueOf(transaction.getTransactionType()) == "withdrawal"
-                || (String.valueOf(transaction.getTransactionType()) == "transfer"
+        this.symbol = (Objects.equals(String.valueOf(transaction.getTransactionType()), "withdrawal")
+                || (Objects.equals(String.valueOf(transaction.getTransactionType()), "transfer")
                     && currentUserId == transaction.getSenderUserId()))
                 ? "-" : "";
         this.type = capitalize(String.valueOf(transaction.getTransactionType()));

@@ -32,9 +32,8 @@ public class Utils {
      * @return the string
      */
     public static String formatDate(Timestamp timestamp){
-        LocalDateTime dateTime = timestamp.toLocalDateTime();
         DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        return formatDate.format(dateTime);
+        return formatDate.format(timestamp.toLocalDateTime());
     }
 
     /**
@@ -44,8 +43,7 @@ public class Utils {
      * @return the string
      */
     public static String formatTime(Timestamp timestamp){
-        LocalDateTime dateTime = timestamp.toLocalDateTime();
         DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("hh:mm a");
-        return formatTime.format(dateTime);
+        return formatTime.format(timestamp.toLocalDateTime());
     }
 }

@@ -34,7 +34,7 @@ public class UserDAOImpl extends DB implements UserDAO {
     @Override
     public List<User> getAllUsers() {
         String sql="SELECT * FROM users";
-        List<User> list = new ArrayList<User>();
+        List<User> list = new ArrayList<>();
         try (ResultSet rs = query(sql)) {
             while (rs.next()) {
                 int id = rs.getInt("id");

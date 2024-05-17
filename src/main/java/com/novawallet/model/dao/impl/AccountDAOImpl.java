@@ -33,7 +33,7 @@ public class AccountDAOImpl extends DB implements AccountDAO {
     @Override
     public List<Account> getAllAccounts() {
         String sql="SELECT * FROM accounts";
-        List<Account> list = new ArrayList<Account>();
+        List<Account> list = new ArrayList<>();
         try (ResultSet rs = query(sql)) {
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -53,7 +53,7 @@ public class AccountDAOImpl extends DB implements AccountDAO {
 
     @Override
     public List<Account> getAccountsByOwnerId(int ownerId) {
-        List<Account> list = new ArrayList<Account>();
+        List<Account> list = new ArrayList<>();
         String sql="SELECT * FROM accounts WHERE owner_id="+ownerId;
         try (ResultSet rs = query(sql)) {
             while(rs.next()) {

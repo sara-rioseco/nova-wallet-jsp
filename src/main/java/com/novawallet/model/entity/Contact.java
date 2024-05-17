@@ -2,7 +2,6 @@ package com.novawallet.model.entity;
 
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDateTime;
 
 public class Contact {
     private int id;

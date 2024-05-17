@@ -2,56 +2,39 @@ package com.novawallet.controller;
 
 import java.io.*;
 import java.math.BigDecimal;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
-
 import com.novawallet.model.dao.*;
 import com.novawallet.model.dao.impl.*;
-import com.novawallet.model.dto.TransactionDTO;
-import com.novawallet.model.entity.*;
+import com.novawallet.model.entity.Account;
+import com.novawallet.model.entity.Transaction;
+import com.novawallet.model.entity.TransactionType;
+import com.novawallet.model.entity.User;
 import com.novawallet.model.service.*;
 import com.novawallet.model.service.impl.*;
-import com.novawallet.shared.Bcrypt;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "deposit", value = "/deposit")
-public class Deposit extends HttpServlet {
+@WebServlet(name = "withdraw", value = "/withdraw")
+public class WithdrawController extends HttpServlet {
 
     private UserService userService;
-    private UserDAO userDAO;
     private AccountService accountService;
-    private AccountDAO accountDAO;
-    private CurrencyService currencyService;
-    private CurrencyDAO currencyDAO;
     private TransactionService transactionService;
-    private TransactionDAO transactionDAO;
-    private ContactService contactService;
-    private ContactDAO contactDAO;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        userDAO= new UserDAOImpl();
+        UserDAO userDAO = new UserDAOImpl();
+        AccountDAO accountDAO = new AccountDAOImpl();
+        TransactionDAO transactionDAO = new TransactionDAOImpl();
         userService= new UserServiceImpl(userDAO);
-        accountDAO = new AccountDAOImpl();
         accountService = new AccountServiceImpl(accountDAO);
-        currencyDAO = new CurrencyDAOImpl();
-        currencyService = new CurrencyServiceImpl(currencyDAO);
-        transactionDAO = new TransactionDAOImpl();
         transactionService = new TransactionServiceImpl(transactionDAO);
-        contactDAO = new ContactDAOImpl();
-        contactService = new ContactServiceImpl(contactDAO);
     }
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.sendRedirect("view/deposit.jsp");
+        response.sendRedirect("view/withdraw.jsp");
     }
 
     @Override
@@ -61,30 +44,26 @@ public class Deposit extends HttpServlet {
         User user = userService.getUserById(userId);
         int accountId = (int) session.getAttribute("accountId");
         Account account = accountService.getAccountById(accountId);
-        Object name = session.getAttribute("name");
         String amount = req.getParameter("amount");
         BigDecimal BDAmount = new BigDecimal(amount);
-        Transaction transaction = null;
+        Transaction transaction;
         try {
-            account = accountService.getAccountsByOwnerId(user.getId()).get(0);
-            boolean res = accountService.updateBalance(account.getId(), BDAmount, TransactionType.deposit, true);
-            transaction = new Transaction(BDAmount, account.getCurrencyId(), TransactionType.deposit, user.getId(), account.getId(),user.getId(),account.getId());
-            boolean transactionRes = transactionService.createTransaction(transaction);
+            account = accountService.getAccountsByOwnerId(user.getId()).getFirst();
+            accountService.updateBalance(account.getId(), BDAmount, TransactionType.withdrawal, true);
+            transaction = new Transaction(BDAmount, account.getCurrencyId(), TransactionType.withdrawal, user.getId(), account.getId(),user.getId(),account.getId());
+            transactionService.createTransaction(transaction);
         } catch (Exception e) {
-            System.out.println("Error creating deposit: " + e.getMessage());
+            System.out.println("Error creating withdrawal: " + e.getMessage());
         }
-
 
         assert account != null;
         req.setAttribute("balance", account.getBalance());
         session.setAttribute("balance", account.getBalance());
 
         resp.setContentType("text/html");
-        PrintWriter out = resp.getWriter();
         req.setAttribute("balance", account.getBalance());
         session.setAttribute("balance", account.getBalance());
         req.getRequestDispatcher("home").forward(req, resp);
-//        resp.sendRedirect("view/home.jsp");
     }
 
     public void destroy() {

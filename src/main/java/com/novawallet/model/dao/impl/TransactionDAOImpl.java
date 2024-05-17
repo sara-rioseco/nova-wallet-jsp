@@ -43,7 +43,7 @@ public class TransactionDAOImpl extends DB implements TransactionDAO {
     @Override
     public List<Transaction> getAllTransactions() {
         String sql="SELECT * FROM transactions";
-        List<Transaction> list = new ArrayList<Transaction>();
+        List<Transaction> list = new ArrayList<>();
         try (ResultSet rs = query(sql)) {
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -68,7 +68,7 @@ public class TransactionDAOImpl extends DB implements TransactionDAO {
     @Override
     public List<Transaction> getTransactionsByUserId(int userId) {
         String sql="SELECT * FROM transactions WHERE (sender_user_id="+userId+" OR receiver_user_id="+userId+")";
-        List<Transaction> list = new ArrayList<Transaction>();
+        List<Transaction> list = new ArrayList<>();
         try (ResultSet rs = query(sql)) {
             while (rs.next()) {
                 int id = rs.getInt("id");

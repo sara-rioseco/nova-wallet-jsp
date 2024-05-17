@@ -31,7 +31,7 @@ public class CurrencyDAOImpl extends DB implements CurrencyDAO {
     @Override
     public List<Currency> getAllCurrencies() {
         String sql="SELECT * FROM currencies";
-        List<Currency> list = new ArrayList<Currency>();
+        List<Currency> list = new ArrayList<>();
         try (ResultSet rs = query(sql)) {
             while (rs.next()) {
                 int id = rs.getInt("id");

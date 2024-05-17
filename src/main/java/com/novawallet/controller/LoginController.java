@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
-
 import com.novawallet.model.dao.*;
 import com.novawallet.model.dao.impl.*;
 import com.novawallet.model.dto.TransactionDTO;
@@ -17,39 +16,30 @@ import com.novawallet.model.entity.User;
 import com.novawallet.model.service.*;
 import com.novawallet.model.service.impl.*;
 import com.novawallet.shared.Bcrypt;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 @WebServlet(name = "login", value = "/home")
-public class Login extends HttpServlet {
+public class LoginController extends HttpServlet {
 
     private UserService userService;
-    private UserDAO userDAO;
     private AccountService accountService;
-    private AccountDAO accountDAO;
     private CurrencyService currencyService;
-    private CurrencyDAO currencyDAO;
     private TransactionService transactionService;
-    private TransactionDAO transactionDAO;
-    private ContactService contactService;
-    private ContactDAO contactDAO;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        userDAO= new UserDAOImpl();
+        UserDAO userDAO = new UserDAOImpl();
+        AccountDAO accountDAO = new AccountDAOImpl();
+        CurrencyDAO currencyDAO = new CurrencyDAOImpl();
+        TransactionDAO transactionDAO = new TransactionDAOImpl();
         userService= new UserServiceImpl(userDAO);
-        accountDAO = new AccountDAOImpl();
         accountService = new AccountServiceImpl(accountDAO);
-        currencyDAO = new CurrencyDAOImpl();
         currencyService = new CurrencyServiceImpl(currencyDAO);
-        transactionDAO = new TransactionDAOImpl();
         transactionService = new TransactionServiceImpl(transactionDAO);
-        contactDAO = new ContactDAOImpl();
-        contactService = new ContactServiceImpl(contactDAO);
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -60,10 +50,10 @@ public class Login extends HttpServlet {
         }
         else {
             User user = userService.getUserByEmail(String.valueOf(mail));
-            Account account = accountService.getAccountsByOwnerId(user.getId()).get(0);
+            Account account = accountService.getAccountsByOwnerId(user.getId()).getFirst();
             Currency currency = currencyService.getCurrencyById(account.getCurrencyId());
             List<Transaction> transactions = transactionService.getTransactionsByUserId(user.getId());
-            List<TransactionDTO> transactionsDTO = new ArrayList<TransactionDTO>();
+            List<TransactionDTO> transactionsDTO = new ArrayList<>();
 
             for (Transaction transaction : transactions) {
                 TransactionDTO dto = new TransactionDTO(transaction, user.getId());
@@ -95,10 +85,6 @@ public class Login extends HttpServlet {
                 throw new RuntimeException(e);
             }
         }
-
-
-
-
     }
 
     @Override
@@ -109,10 +95,10 @@ public class Login extends HttpServlet {
         String pass = req.getParameter("pass");
         if (pass != null){
             User user = userService.getUserByEmail(mail) != null ? userService.getUserByEmail(mail) : userService.getUserByEmail(String.valueOf(session.getAttribute("mail")));
-            Account account = accountService.getAccountsByOwnerId(user.getId()).get(0);
+            Account account = accountService.getAccountsByOwnerId(user.getId()).getFirst();
             Currency currency = currencyService.getCurrencyById(account.getCurrencyId());
             List<Transaction> transactions = transactionService.getTransactionsByUserId(user.getId());
-            List<TransactionDTO> transactionsDTO = new ArrayList<TransactionDTO>();
+            List<TransactionDTO> transactionsDTO = new ArrayList<>();
             for (Transaction transaction : transactions) {
                 TransactionDTO dto = new TransactionDTO(transaction, user.getId());
                 transactionsDTO.add(dto);
@@ -122,7 +108,6 @@ public class Login extends HttpServlet {
             boolean isPasswordValid = Bcrypt.verify(pass, storedHash);
 
             resp.setContentType("text/html");
-            PrintWriter out = resp.getWriter();
             if (isPasswordValid) {
                 session.setAttribute("name", user.getFirstName());
                 session.setAttribute("last", user.getLastName());

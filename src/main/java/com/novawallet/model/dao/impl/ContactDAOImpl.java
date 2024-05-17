@@ -36,7 +36,7 @@ public class ContactDAOImpl extends DB implements ContactDAO {
 
     @Override
     public List<Contact> getAllContacts() {
-        List<Contact> list = new ArrayList<Contact>();
+        List<Contact> list = new ArrayList<>();
         String sql="SELECT * FROM contacts";
         try (ResultSet rs = query(sql)) {
             while(rs.next()) {
@@ -59,7 +59,7 @@ public class ContactDAOImpl extends DB implements ContactDAO {
 
     @Override
     public List<Contact> getContactsByOwnerId(int ownerUserId) {
-        List<Contact> list = new ArrayList<Contact>();
+        List<Contact> list = new ArrayList<>();
         String sql="SELECT * FROM contacts WHERE owner_user_id="+ownerUserId;
         try (ResultSet rs = query(sql)) {
             while(rs.next()) {

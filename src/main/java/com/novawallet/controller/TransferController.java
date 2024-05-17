@@ -7,50 +7,40 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
-
 import com.novawallet.model.dao.*;
 import com.novawallet.model.dao.impl.*;
 import com.novawallet.model.dto.ContactDTO;
-import com.novawallet.model.dto.TransactionDTO;
 import com.novawallet.model.entity.*;
 import com.novawallet.model.service.*;
 import com.novawallet.model.service.impl.*;
-import com.novawallet.shared.Bcrypt;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-
 import static java.lang.Integer.parseInt;
 
 @WebServlet(name = "transfer", value = "/transfer")
-public class Transfer extends HttpServlet {
+public class TransferController extends HttpServlet {
 
 
     private UserService userService;
-    private UserDAO userDAO;
     private AccountService accountService;
-    private AccountDAO accountDAO;
     private CurrencyService currencyService;
-    private CurrencyDAO currencyDAO;
     private TransactionService transactionService;
-    private TransactionDAO transactionDAO;
     private ContactService contactService;
-    private ContactDAO contactDAO;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        userDAO= new UserDAOImpl();
+        UserDAO userDAO = new UserDAOImpl();
+        AccountDAO accountDAO = new AccountDAOImpl();
+        CurrencyDAO currencyDAO = new CurrencyDAOImpl();
+        TransactionDAO transactionDAO = new TransactionDAOImpl();
+        ContactDAO contactDAO = new ContactDAOImpl();
         userService= new UserServiceImpl(userDAO);
-        accountDAO = new AccountDAOImpl();
         accountService = new AccountServiceImpl(accountDAO);
-        currencyDAO = new CurrencyDAOImpl();
         currencyService = new CurrencyServiceImpl(currencyDAO);
-        transactionDAO = new TransactionDAOImpl();
         transactionService = new TransactionServiceImpl(transactionDAO);
-        contactDAO = new ContactDAOImpl();
         contactService = new ContactServiceImpl(contactDAO);
     }
 
@@ -62,10 +52,10 @@ public class Transfer extends HttpServlet {
             response.sendRedirect("index.jsp");
         } else {
             User user = userService.getUserByEmail(String.valueOf(mail));
-            Account account = accountService.getAccountsByOwnerId(user.getId()).get(0);
+            Account account = accountService.getAccountsByOwnerId(user.getId()).getFirst();
             Currency currency = currencyService.getCurrencyById(account.getCurrencyId());
             List<Contact> contacts = contactService.getAllContactsByOwnerId((user.getId()));
-            List<ContactDTO> contactsDTO = new ArrayList<ContactDTO>();
+            List<ContactDTO> contactsDTO = new ArrayList<>();
 
             for (Contact contact : contacts) {
                 ContactDTO dto = new ContactDTO(contact, user.getId());
@@ -109,16 +99,16 @@ public class Transfer extends HttpServlet {
         String amount = req.getParameter("amount");
         int receiverContactId = parseInt(req.getParameter("contact"));
         int receiverUserId = contactService.getContactUserIdByContactId(receiverContactId);
-        int receiverAccountId = accountService.getAccountsByOwnerId(receiverUserId).get(0).getId();
+        int receiverAccountId = accountService.getAccountsByOwnerId(receiverUserId).getFirst().getId();
         Account receiverAccount = accountService.getAccountById(receiverAccountId);
         BigDecimal BDAmount = new BigDecimal(amount);
-        Transaction transaction = null;
+        Transaction transaction;
         try {
-            senderAccount = accountService.getAccountsByOwnerId(user.getId()).get(0);
-            boolean resSender = accountService.updateBalance(senderAccount.getId(), BDAmount, TransactionType.transfer, true);
-            boolean resReceiver = accountService.updateBalance(receiverAccount.getId(), BDAmount, TransactionType.transfer, false);
+            senderAccount = accountService.getAccountsByOwnerId(user.getId()).getFirst();
+            accountService.updateBalance(senderAccount.getId(), BDAmount, TransactionType.transfer, true);
+            accountService.updateBalance(receiverAccount.getId(), BDAmount, TransactionType.transfer, false);
             transaction = new Transaction(BDAmount, senderAccount.getCurrencyId(), TransactionType.transfer, user.getId(), senderAccount.getId(), receiverUserId, receiverAccountId);
-            boolean transactionRes = transactionService.createTransaction(transaction);
+            transactionService.createTransaction(transaction);
         } catch (Exception e) {
             System.out.println("Error creating deposit: " + e.getMessage());
         }
