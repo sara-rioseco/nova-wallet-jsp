@@ -22,7 +22,7 @@ public abstract class DB {
         String pass = "admin";
         if (stmt == null) {
             try {
-                Class.forName("com.mysql.jdbc.Driver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
 
                 String stringConnection = "jdbc:mysql://localhost:3306/" + schemaName;
                 conn = DriverManager.getConnection(stringConnection, user, pass);
