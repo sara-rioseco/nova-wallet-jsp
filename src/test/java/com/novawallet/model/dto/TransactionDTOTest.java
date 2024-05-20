@@ -8,6 +8,7 @@ import com.novawallet.model.entity.Transaction;
 import com.novawallet.model.entity.TransactionType;
 import com.novawallet.model.service.CurrencyService;
 import com.novawallet.model.service.impl.CurrencyServiceImpl;
+import com.novawallet.shared.DB;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -15,33 +16,40 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.Time;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.time.Instant;
 
 import static com.novawallet.model.entity.TransactionType.transfer;
 import static com.novawallet.shared.Utils.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class TransactionDTOTest {
 
     @Mock
-    private CurrencyDAO currencyDAO;
+    private DB mockDB = mock(DB.class);
 
     @Mock
-    private CurrencyService currencyService;
+    private Connection mockConnection = mock(Connection.class);
+
+    @Mock
+    private PreparedStatement mockPreparedStatement = mock(PreparedStatement.class);
+
+    @Mock
+    private ResultSet mockResultSet = mock(ResultSet.class);
 
     @InjectMocks
-    private CurrencyServiceImpl currencyServiceImpl;
+    private CurrencyDAOImpl currencyDAO = mock(CurrencyDAOImpl.class);
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws SQLException {
         MockitoAnnotations.openMocks(this);
-        currencyService = new CurrencyServiceImpl(currencyDAO);
+        when(mockDB.getConnection()).thenReturn(mockConnection);
+        when(mockConnection.createStatement()).thenReturn(mockPreparedStatement);
+        when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
     }
 
     @Test

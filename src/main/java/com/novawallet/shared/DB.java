@@ -11,7 +11,7 @@ import java.sql.DatabaseMetaData;
 
 public abstract class DB {
 
-    private Connection conn;
+    public Connection conn;
     private Statement stmt;
     private ResultSet rs;
 
@@ -43,7 +43,7 @@ public abstract class DB {
         return stmt;
     }
 
-    protected Connection getConnection() {
+    public Connection getConnection() {
         return conn;
     }
 
