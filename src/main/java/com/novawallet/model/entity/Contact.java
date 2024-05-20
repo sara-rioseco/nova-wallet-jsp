@@ -52,7 +52,7 @@ public class Contact {
     }
 
     public String getFullName(){
-        return firstName + (lastName != null ? lastName : "");
+        return firstName + (lastName != null ? " " + lastName : "");
     }
 
     public String getEmail() {

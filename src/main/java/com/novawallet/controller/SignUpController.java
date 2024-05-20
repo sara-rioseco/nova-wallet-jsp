@@ -50,7 +50,7 @@ public class SignUpController extends HttpServlet {
         String firstName = req.getParameter("firstname");
         String lastName = req.getParameter("lastname");
         String email = req.getParameter("email");
-        String hash = Bcrypt.encode(req.getParameter("password"));
+        String hash = Bcrypt.encode(Bcrypt.encoder, req.getParameter("password"));
         List<TransactionDTO> transactionsDTO = new ArrayList<>();
         User user = new User(firstName, lastName, email, hash);
         User newUser = null;

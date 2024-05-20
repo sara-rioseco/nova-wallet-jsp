@@ -105,7 +105,7 @@ public class LoginController extends HttpServlet {
             }
 
             String storedHash = user.getPassword();
-            boolean isPasswordValid = Bcrypt.verify(pass, storedHash);
+            boolean isPasswordValid = Bcrypt.verify(Bcrypt.encoder, pass, storedHash);
 
             resp.setContentType("text/html");
             if (isPasswordValid) {
