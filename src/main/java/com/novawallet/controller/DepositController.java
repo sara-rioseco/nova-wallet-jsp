@@ -7,6 +7,7 @@ import com.novawallet.model.dao.impl.*;
 import com.novawallet.model.entity.*;
 import com.novawallet.model.service.*;
 import com.novawallet.model.service.impl.*;
+import com.novawallet.shared.DB;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
@@ -22,9 +23,11 @@ public class DepositController extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        UserDAO userDAO = new UserDAOImpl();
-        AccountDAO accountDAO = new AccountDAOImpl();
-        TransactionDAO transactionDAO = new TransactionDAOImpl();
+        DB db = new DB();
+        db.connect();
+        UserDAO userDAO = new UserDAOImpl(db);
+        AccountDAO accountDAO = new AccountDAOImpl(db);
+        TransactionDAO transactionDAO = new TransactionDAOImpl(db);
         userService= new UserServiceImpl(userDAO);
         accountService = new AccountServiceImpl(accountDAO);
         transactionService = new TransactionServiceImpl(transactionDAO);

@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.sql.DatabaseMetaData;
 
-public abstract class DB {
+public class DB {
 
     public static Connection conn;
     public Statement stmt;
@@ -17,7 +17,6 @@ public abstract class DB {
 
     public void connect() {
         String schemaName = "nova_wallet";
-        // MODIFICAR CREDENCIALES
         String user = "user";
         String pass = "password";
         String stringConnection = "jdbc:mysql://localhost:3306/" + schemaName;
@@ -106,7 +105,7 @@ public abstract class DB {
         }
     }
 
-    protected ResultSet query(String sql) {
+    public ResultSet query(String sql) {
         if(stmt == null) {
             try {
                 this.stmt = conn.createStatement();

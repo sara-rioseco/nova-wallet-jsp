@@ -15,6 +15,7 @@ import com.novawallet.model.entity.Transaction;
 import com.novawallet.model.entity.User;
 import com.novawallet.model.service.*;
 import com.novawallet.model.service.impl.*;
+import com.novawallet.shared.DB;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
@@ -27,14 +28,17 @@ public class TransactionsController extends HttpServlet {
     private AccountService accountService;
     private CurrencyService currencyService;
     private TransactionService transactionService;
+    private DB db;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        UserDAO userDAO = new UserDAOImpl();
-        AccountDAO accountDAO = new AccountDAOImpl();
-        CurrencyDAO currencyDAO = new CurrencyDAOImpl();
-        TransactionDAO transactionDAO = new TransactionDAOImpl();
+        db = new DB();
+        db.connect();
+        UserDAO userDAO = new UserDAOImpl(db);
+        AccountDAO accountDAO = new AccountDAOImpl(db);
+        CurrencyDAO currencyDAO = new CurrencyDAOImpl(db);
+        TransactionDAO transactionDAO = new TransactionDAOImpl(db);
         userService= new UserServiceImpl(userDAO);
         accountService = new AccountServiceImpl(accountDAO);
         currencyService = new CurrencyServiceImpl(currencyDAO);
@@ -54,7 +58,7 @@ public class TransactionsController extends HttpServlet {
             List<TransactionDTO> transactionsDTO = new ArrayList<>();
 
             for (Transaction transaction : transactions) {
-                TransactionDTO dto = new TransactionDTO(transaction, user.getId());
+                TransactionDTO dto = new TransactionDTO(transaction, user.getId(), db);
                 transactionsDTO.add(dto);
             }
 

@@ -8,12 +8,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CurrencyDAOImpl extends DB implements CurrencyDAO {
+public class CurrencyDAOImpl implements CurrencyDAO {
 
-    public CurrencyDAOImpl() {
-        if(this.stmt == null) {
-            this.connect();
-        }
+    private final DB db;
+
+    public CurrencyDAOImpl(DB db) {
+        this.db = db;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class CurrencyDAOImpl extends DB implements CurrencyDAO {
         String sql="INSERT INTO currencies(name,symbol)";
         sql+=" VALUES('"+name+"','"+symbol+"')";
         try {
-            int res = update(sql);
+            int res = db.update(sql);
             return res>0;
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -34,7 +34,7 @@ public class CurrencyDAOImpl extends DB implements CurrencyDAO {
     public List<Currency> getAllCurrencies() {
         String sql="SELECT * FROM currencies";
         List<Currency> list = new ArrayList<>();
-        try (ResultSet rs = query(sql)) {
+        try (ResultSet rs = db.query(sql)) {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
@@ -53,7 +53,7 @@ public class CurrencyDAOImpl extends DB implements CurrencyDAO {
     public Currency getCurrencyBySymbol(String symbol) {
         Currency currency = null;
         String sql="SELECT * FROM currencies WHERE symbol='"+symbol+"'";
-        try (ResultSet rs = query(sql)) {
+        try (ResultSet rs = db.query(sql)) {
             while(rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
@@ -70,7 +70,7 @@ public class CurrencyDAOImpl extends DB implements CurrencyDAO {
     public Currency getCurrencyById(int id) {
         Currency currency = null;
         String sql="SELECT * FROM currencies WHERE id="+id;
-        try (ResultSet rs = query(sql)) {
+        try (ResultSet rs = db.query(sql)) {
             while(rs.next()) {
                 String name = rs.getString("name");
                 String symbol = rs.getString("symbol");
@@ -90,7 +90,7 @@ public class CurrencyDAOImpl extends DB implements CurrencyDAO {
         String sql = "UPDATE currencies SET ";
         sql+="name='"+name+"', ";
         sql+=" WHERE id="+id;
-        int res = update(sql);
+        int res = db.update(sql);
         return res>0;
     }
 
@@ -98,7 +98,7 @@ public class CurrencyDAOImpl extends DB implements CurrencyDAO {
     public boolean deleteCurrency(int id) {
         String sql = "DELETE FROM currencies ";
         sql+=" WHERE id="+id;
-        int res = update(sql);
+        int res = db.update(sql);
         return res>0;
     }
 }

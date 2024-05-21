@@ -5,6 +5,7 @@ import com.novawallet.model.dao.impl.CurrencyDAOImpl;
 import com.novawallet.model.entity.Transaction;
 import com.novawallet.model.service.CurrencyService;
 import com.novawallet.model.service.impl.CurrencyServiceImpl;
+import com.novawallet.shared.DB;
 
 
 import java.text.NumberFormat;
@@ -28,8 +29,8 @@ public class TransactionDTO {
     private final String date;
 
 
-    public TransactionDTO(Transaction transaction, int currentUserId) {
-        CurrencyDAO currencyDAO = new CurrencyDAOImpl();
+    public TransactionDTO(Transaction transaction, int currentUserId, DB db) {
+        CurrencyDAO currencyDAO = new CurrencyDAOImpl(db);
         CurrencyService currencyService = new CurrencyServiceImpl(currencyDAO);
         this.id = transaction.getId();
         this.currentUserId = currentUserId;

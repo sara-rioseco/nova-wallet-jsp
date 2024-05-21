@@ -8,6 +8,7 @@ import com.novawallet.model.entity.User;
 import com.novawallet.model.service.*;
 import com.novawallet.model.service.impl.*;
 import com.novawallet.shared.Bcrypt;
+import com.novawallet.shared.DB;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -32,9 +33,11 @@ public class SignUpController extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        UserDAO userDAO = new UserDAOImpl();
-        AccountDAO accountDAO = new AccountDAOImpl();
-        CurrencyDAO currencyDAO = new CurrencyDAOImpl();
+        DB db = new DB();
+        db.connect();
+        UserDAO userDAO = new UserDAOImpl(db);
+        AccountDAO accountDAO = new AccountDAOImpl(db);
+        CurrencyDAO currencyDAO = new CurrencyDAOImpl(db);
         userService= new UserServiceImpl(userDAO);
         accountService = new AccountServiceImpl(accountDAO);
         currencyService = new CurrencyServiceImpl(currencyDAO);

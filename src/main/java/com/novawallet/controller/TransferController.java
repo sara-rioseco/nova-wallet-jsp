@@ -13,6 +13,7 @@ import com.novawallet.model.dto.ContactDTO;
 import com.novawallet.model.entity.*;
 import com.novawallet.model.service.*;
 import com.novawallet.model.service.impl.*;
+import com.novawallet.shared.DB;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
@@ -32,11 +33,13 @@ public class TransferController extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        UserDAO userDAO = new UserDAOImpl();
-        AccountDAO accountDAO = new AccountDAOImpl();
-        CurrencyDAO currencyDAO = new CurrencyDAOImpl();
-        TransactionDAO transactionDAO = new TransactionDAOImpl();
-        ContactDAO contactDAO = new ContactDAOImpl();
+        DB db = new DB();
+        db.connect();
+        UserDAO userDAO = new UserDAOImpl(db);
+        AccountDAO accountDAO = new AccountDAOImpl(db);
+        CurrencyDAO currencyDAO = new CurrencyDAOImpl(db);
+        TransactionDAO transactionDAO = new TransactionDAOImpl(db);
+        ContactDAO contactDAO = new ContactDAOImpl(db);
         userService= new UserServiceImpl(userDAO);
         accountService = new AccountServiceImpl(accountDAO);
         currencyService = new CurrencyServiceImpl(currencyDAO);

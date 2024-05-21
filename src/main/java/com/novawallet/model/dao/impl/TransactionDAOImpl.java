@@ -11,12 +11,12 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransactionDAOImpl extends DB implements TransactionDAO {
+public class TransactionDAOImpl implements TransactionDAO {
 
-    public TransactionDAOImpl() {
-        if(this.stmt == null) {
-            this.connect();
-        }
+    private final DB db;
+
+    public TransactionDAOImpl(DB db) {
+        this.db = db;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class TransactionDAOImpl extends DB implements TransactionDAO {
                 +senderAccountId+","+receiverUserId+","+receiverAccountId+")";
 
         try {
-            int res = update(sql);
+            int res = db.update(sql);
             return res>0;
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -46,7 +46,7 @@ public class TransactionDAOImpl extends DB implements TransactionDAO {
     public List<Transaction> getAllTransactions() {
         String sql="SELECT * FROM transactions";
         List<Transaction> list = new ArrayList<>();
-        try (ResultSet rs = query(sql)) {
+        try (ResultSet rs = db.query(sql)) {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 BigDecimal amount = rs.getBigDecimal("amount");
@@ -71,7 +71,7 @@ public class TransactionDAOImpl extends DB implements TransactionDAO {
     public List<Transaction> getTransactionsByUserId(int userId) {
         String sql="SELECT * FROM transactions WHERE (sender_user_id="+userId+" OR receiver_user_id="+userId+")";
         List<Transaction> list = new ArrayList<>();
-        try (ResultSet rs = query(sql)) {
+        try (ResultSet rs = db.query(sql)) {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 BigDecimal amount = rs.getBigDecimal("amount");
@@ -96,7 +96,7 @@ public class TransactionDAOImpl extends DB implements TransactionDAO {
     public Transaction getTransactionById(int id) {
         Transaction transaction = null;
         String sql="SELECT * FROM transactions WHERE id="+id;
-        try (ResultSet rs = query(sql)) {
+        try (ResultSet rs = db.query(sql)) {
             while (rs.next()) {
                 BigDecimal amount = rs.getBigDecimal("amount");
                 int currencyId = rs.getInt("currency_id");

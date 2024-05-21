@@ -9,12 +9,12 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactDAOImpl extends DB implements ContactDAO {
+public class ContactDAOImpl implements ContactDAO {
 
-    public ContactDAOImpl() {
-        if(this.stmt == null) {
-            this.connect();
-        }
+    private final DB db;
+
+    public ContactDAOImpl(DB db) {
+        this.db = db;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class ContactDAOImpl extends DB implements ContactDAO {
         sql+=" VALUES('"+firstName+"','"+lastName+"','"+email+"',"+contactUserId+","
                 +ownerUserId+")";
         try {
-            int res = update(sql);
+            int res = db.update(sql);
             return res>0;
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -40,7 +40,7 @@ public class ContactDAOImpl extends DB implements ContactDAO {
     public List<Contact> getAllContacts() {
         List<Contact> list = new ArrayList<>();
         String sql="SELECT * FROM contacts";
-        try (ResultSet rs = query(sql)) {
+        try (ResultSet rs = db.query(sql)) {
             while(rs.next()) {
                 int id = rs.getInt("id");
                 String firstName = rs.getString("first_name");
@@ -63,7 +63,7 @@ public class ContactDAOImpl extends DB implements ContactDAO {
     public List<Contact> getContactsByOwnerId(int ownerUserId) {
         List<Contact> list = new ArrayList<>();
         String sql="SELECT * FROM contacts WHERE owner_user_id="+ownerUserId;
-        try (ResultSet rs = query(sql)) {
+        try (ResultSet rs = db.query(sql)) {
             while(rs.next()) {
                 int id = rs.getInt("id");
                 String firstName = rs.getString("first_name");
@@ -90,7 +90,7 @@ public class ContactDAOImpl extends DB implements ContactDAO {
     public Contact getContactById(int id) {
         Contact contact = null;
         String sql="SELECT * FROM contacts WHERE id="+id;
-        try (ResultSet rs = query(sql)) {
+        try (ResultSet rs = db.query(sql)) {
             while(rs.next()) {
                 String firstName = rs.getString("first_name");
                 String lastName = rs.getString("last_name");
@@ -116,7 +116,7 @@ public class ContactDAOImpl extends DB implements ContactDAO {
         String sql = "UPDATE contacts SET first_name='"+firstName+"', ";
         sql+="last_name='"+lastName+"', email='"+email+"', ";
         sql+=" WHERE id="+id;
-        int res = update(sql);
+        int res = db.update(sql);
         return res>0;
     }
 
@@ -124,7 +124,7 @@ public class ContactDAOImpl extends DB implements ContactDAO {
     public boolean deleteContact(int id) {
         String sql = "DELETE FROM contacts ";
         sql+=" WHERE id="+id;
-        int res = update(sql);
+        int res = db.update(sql);
         return res>0;
     }
 }

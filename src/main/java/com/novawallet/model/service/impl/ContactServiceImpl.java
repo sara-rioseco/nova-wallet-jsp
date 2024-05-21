@@ -5,20 +5,23 @@ import com.novawallet.model.dao.UserDAO;
 import com.novawallet.model.dao.impl.UserDAOImpl;
 import com.novawallet.model.entity.Contact;
 import com.novawallet.model.service.ContactService;
+import com.novawallet.shared.DB;
 
 import java.util.List;
 
 public class ContactServiceImpl implements ContactService {
 
     private final ContactDAO contactDAO;
+    private final DB db;
 
     public ContactServiceImpl(ContactDAO contactDAO) {
         this.contactDAO = contactDAO;
+        this.db = new DB();
     }
 
     @Override
     public boolean createContact(Contact contact) {
-        UserDAO userDAO = new UserDAOImpl();
+        UserDAO userDAO = new UserDAOImpl(db);
         if (contact != null
                 && contact.getFirstName() !=null
                 && !contact.getFirstName().isBlank()

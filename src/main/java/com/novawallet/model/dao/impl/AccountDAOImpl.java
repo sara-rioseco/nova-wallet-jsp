@@ -10,12 +10,12 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccountDAOImpl extends DB implements AccountDAO {
+public class AccountDAOImpl implements AccountDAO {
 
-    public AccountDAOImpl() {
-        if(this.stmt == null) {
-            this.connect();
-        };
+    private final DB db;
+
+    public AccountDAOImpl(DB db) {
+        this.db = db;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class AccountDAOImpl extends DB implements AccountDAO {
         String sql="INSERT INTO accounts(owner_id, currency_id)";
         sql+=" VALUES("+ownerId+","+currencyId+")";
         try {
-            int res = update(sql);
+            int res = db.update(sql);
             return res>0;
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -36,7 +36,7 @@ public class AccountDAOImpl extends DB implements AccountDAO {
     public List<Account> getAllAccounts() {
         String sql="SELECT * FROM accounts";
         List<Account> list = new ArrayList<>();
-        try (ResultSet rs = query(sql)) {
+        try (ResultSet rs = db.query(sql)) {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 int ownerId = rs.getInt("owner_id");
@@ -57,7 +57,7 @@ public class AccountDAOImpl extends DB implements AccountDAO {
     public List<Account> getAccountsByOwnerId(int ownerId) {
         List<Account> list = new ArrayList<>();
         String sql="SELECT * FROM accounts WHERE owner_id="+ownerId;
-        try (ResultSet rs = query(sql)) {
+        try (ResultSet rs = db.query(sql)) {
             while(rs.next()) {
                 int id = rs.getInt("id");
                 int currencyId = rs.getInt("currency_id");
@@ -77,7 +77,7 @@ public class AccountDAOImpl extends DB implements AccountDAO {
     public Account getAccountById(int id) {
         Account account = null;
         String sql="SELECT * FROM accounts WHERE id="+id;
-        try (ResultSet rs = query(sql)) {
+        try (ResultSet rs = db.query(sql)) {
             while(rs.next()) {
                 int ownerId = rs.getInt("owner_id");
                 int currencyId = rs.getInt("currency_id");
@@ -99,7 +99,7 @@ public class AccountDAOImpl extends DB implements AccountDAO {
         String sql = "UPDATE accounts SET ";
         sql+="balance="+balance;
         sql+=" WHERE id="+id;
-        int res = update(sql);
+        int res = db.update(sql);
         return res>0;
     }
 
@@ -107,7 +107,7 @@ public class AccountDAOImpl extends DB implements AccountDAO {
     public boolean deleteAccount(int id) {
         String sql = "DELETE FROM accounts ";
         sql+=" WHERE id="+id;
-        int res = update(sql);
+        int res = db.update(sql);
         return res>0;
     }
 }

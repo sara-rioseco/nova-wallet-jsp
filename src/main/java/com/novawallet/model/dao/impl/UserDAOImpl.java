@@ -9,12 +9,12 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAOImpl extends DB implements UserDAO {
+public class UserDAOImpl implements UserDAO {
 
-    public UserDAOImpl() {
-        if(stmt == null) {
-            this.connect();
-        }
+    private final DB db;
+
+    public UserDAOImpl(DB db) {
+        this.db = db;
     }
 
     @Override
@@ -26,7 +26,7 @@ public class UserDAOImpl extends DB implements UserDAO {
         String sql="INSERT INTO users(first_name,last_name,email,password)";
         sql+=" VALUES('"+firstName+"','"+lastName+"','"+email+"','"+password+"')";
         try {
-            int res = update(sql);
+            int res = db.update(sql);
             return res>0;
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -37,7 +37,7 @@ public class UserDAOImpl extends DB implements UserDAO {
     public List<User> getAllUsers() {
         String sql="SELECT * FROM users";
         List<User> list = new ArrayList<>();
-        try (ResultSet rs = query(sql)) {
+        try (ResultSet rs = db.query(sql)) {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String firstName = rs.getString("first_name");
@@ -59,7 +59,7 @@ public class UserDAOImpl extends DB implements UserDAO {
     public User getUserByEmail(String email) {
         User user = null;
         String sql="SELECT * FROM users WHERE email='"+email+"'";
-        try (ResultSet rs = query(sql)) {
+        try (ResultSet rs = db.query(sql)) {
             while(rs.next()) {
                 int id = rs.getInt("id");
                 String firstName = rs.getString("first_name");
@@ -79,7 +79,7 @@ public class UserDAOImpl extends DB implements UserDAO {
     public User getUserById(int id) {
         User user = null;
         String sql="SELECT * FROM users WHERE id="+id;
-        try (ResultSet rs = query(sql)) {
+        try (ResultSet rs = db.query(sql)) {
             while(rs.next()) {
                 String firstName = rs.getString("first_name");
                 String lastName = rs.getString("last_name");
@@ -104,7 +104,7 @@ public class UserDAOImpl extends DB implements UserDAO {
         String sql = "UPDATE users SET ";
         sql+="first_name='"+firstName+"', last_name='"+lastName+"', ";
         sql+="password='"+password+"', WHERE id="+id;
-        int res = update(sql);
+        int res = db.update(sql);
         return res>0;
     }
 
@@ -112,7 +112,7 @@ public class UserDAOImpl extends DB implements UserDAO {
     public boolean deleteUser(int id) {
         String sql = "DELETE FROM users ";
         sql+=" WHERE id="+id;
-        int res = update(sql);
+        int res = db.update(sql);
         return res>0;
     }
 }

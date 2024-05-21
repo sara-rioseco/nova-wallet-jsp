@@ -9,6 +9,8 @@ import com.novawallet.model.dao.impl.CurrencyDAOImpl;
 import com.novawallet.model.dao.impl.UserDAOImpl;
 import com.novawallet.model.entity.Transaction;
 import com.novawallet.model.service.TransactionService;
+import com.novawallet.shared.DB;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -17,16 +19,18 @@ import static com.novawallet.model.entity.TransactionType.*;
 public class TransactionServiceImpl implements TransactionService {
 
     private final TransactionDAO transactionDAO;
+    private final DB db;
 
     public TransactionServiceImpl(TransactionDAO transactionDAO) {
         this.transactionDAO = transactionDAO;
+        this.db = new DB();
     }
 
     @Override
     public boolean createTransaction(Transaction transaction) {
-        UserDAO userDAO = new UserDAOImpl();
-        AccountDAO accountDAO = new AccountDAOImpl();
-        CurrencyDAO currencyDAO = new CurrencyDAOImpl();
+        UserDAO userDAO = new UserDAOImpl(db);
+        AccountDAO accountDAO = new AccountDAOImpl(db);
+        CurrencyDAO currencyDAO = new CurrencyDAOImpl(db);
         if (transaction != null
                 && transaction.getAmount().compareTo(BigDecimal.ZERO) > 0
                 && transaction.getTransactionType() != null

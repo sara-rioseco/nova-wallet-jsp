@@ -22,7 +22,7 @@ class DBTest extends DB {
     private Connection mockConnection = mock(Connection.class);
 
     @Mock
-    private Statement mockStatement=mock(Statement.class);
+    private Statement mockStatement = mock(Statement.class);
 
     @Mock
     private ResultSet mockResultSet;
@@ -31,10 +31,7 @@ class DBTest extends DB {
 
     @BeforeEach
     void setUp() throws SQLException, ClassNotFoundException {
-        // Initialize the DB instance (anonymous subclass for testing purposes)
         db = new DB() {};
-
-        // Mock DriverManager to return the mock connection
         when(DriverManager.getConnection(anyString(), anyString(), anyString())).thenReturn(mockConnection);
         when(mockConnection.createStatement()).thenReturn(mockStatement);
     }
