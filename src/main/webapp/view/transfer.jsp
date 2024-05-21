@@ -45,15 +45,23 @@
             <section class="contacts-wrapper">
                 <form method="post" action="transfer" style="display:contents;">
                     <div class="contacts-list">
-                    <c:forEach items="${contacts}" var="item">
-                        <div class="contact-wrapper">
-                            <input type="radio" id="contact-${item.id}" name="contact" value=${item.id} class="contact-item contact-${item.id}" style="display: none;" required>
-                            <label class="contact-label" for="contact-${item.id}">
-                                ${item.name} ${item.last}
-                                <span>${item.mail}</span>
-                            </label>
-                        </div>
-                    </c:forEach>
+                        <c:if test="${contacts.size() > 0}">
+                            <c:forEach items="${contacts}" var="item">
+                                <div class="contact-wrapper">
+                                    <input type="radio" id="contact-${item.id}" name="contact" value=${item.id} class="contact-item contact-${item.id}" style="display: none;" required>
+                                    <label class="contact-label" for="contact-${item.id}">
+                                            ${item.name} ${item.last}
+                                        <span>${item.mail}</span>
+                                    </label>
+                                </div>
+                            </c:forEach>
+                        </c:if>
+                        <c:if test="${contacts.size() == 0}">
+                            <div class="contact-wrapper">
+                                <h3 id="contact-0" class="contact-item no-contact"> You don't have any contacts yet. </h3>
+                            </div>
+                        </c:if>
+
                     </div>
                     <div class="input-wrapper">
                         <input class="input input-text" type="number" id="transfer-amount" autocomplete="new-password"
