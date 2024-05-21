@@ -12,7 +12,9 @@ import java.util.List;
 public class UserDAOImpl extends DB implements UserDAO {
 
     public UserDAOImpl() {
-        this.connect();
+        if(stmt == null) {
+            this.connect();
+        }
     }
 
     @Override

@@ -14,7 +14,9 @@ import java.util.List;
 public class TransactionDAOImpl extends DB implements TransactionDAO {
 
     public TransactionDAOImpl() {
-        this.connect();
+        if(this.stmt == null) {
+            this.connect();
+        }
     }
 
     @Override

@@ -13,7 +13,9 @@ import java.util.List;
 public class AccountDAOImpl extends DB implements AccountDAO {
 
     public AccountDAOImpl() {
-        this.connect();
+        if(this.stmt == null) {
+            this.connect();
+        };
     }
 
     @Override

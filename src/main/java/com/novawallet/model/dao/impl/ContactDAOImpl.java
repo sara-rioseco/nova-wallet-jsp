@@ -12,7 +12,9 @@ import java.util.List;
 public class ContactDAOImpl extends DB implements ContactDAO {
 
     public ContactDAOImpl() {
-        this.connect();
+        if(this.stmt == null) {
+            this.connect();
+        }
     }
 
     @Override

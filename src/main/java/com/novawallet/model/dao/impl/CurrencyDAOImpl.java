@@ -11,7 +11,9 @@ import java.util.List;
 public class CurrencyDAOImpl extends DB implements CurrencyDAO {
 
     public CurrencyDAOImpl() {
-        this.connect();
+        if(this.stmt == null) {
+            this.connect();
+        }
     }
 
     @Override

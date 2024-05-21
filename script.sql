@@ -1,8 +1,12 @@
 START transaction;
 SET SQL_SAFE_UPDATES = 0;
 
-CREATE SCHEMA nova_wallet;
+CREATE SCHEMA nova_wallet DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 USE nova_wallet;
+
+CREATE USER 'user'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON nova_wallet.* TO 'user'@'localhost';
+FLUSH PRIVILEGES;
 
 CREATE TABLE currencies(
 id INT PRIMARY KEY AUTO_INCREMENT,

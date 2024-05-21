@@ -11,20 +11,19 @@ import java.sql.DatabaseMetaData;
 
 public abstract class DB {
 
-    public Connection conn;
-    private Statement stmt;
+    public static Connection conn;
+    public Statement stmt;
     private ResultSet rs;
 
-    protected void connect() {
+    public void connect() {
         String schemaName = "nova_wallet";
         // MODIFICAR CREDENCIALES
-        String user = "root";
-        String pass = "admin";
-        if (stmt == null) {
+        String user = "user";
+        String pass = "password";
+        String stringConnection = "jdbc:mysql://localhost:3306/" + schemaName;
+        if (conn == null) {
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
-
-                String stringConnection = "jdbc:mysql://localhost:3306/" + schemaName;
                 conn = DriverManager.getConnection(stringConnection, user, pass);
                 stmt = conn.createStatement();
                 System.out.println("DB connection: ON");
@@ -39,47 +38,54 @@ public abstract class DB {
         }
     }
 
-    protected Statement getStatement() throws SQLException {
+    public Statement getStatement() {
+        if(stmt == null) {
+            try {
+                this.stmt = conn.createStatement();
+            } catch (SQLException e) {
+                System.out.print("Error creating stmt: " + e.getMessage());
+                return null;
+            }
+        }
         return stmt;
     }
 
     public Connection getConnection() {
+        if(conn == null) {
+            connect();
+        }
         return conn;
     }
 
     protected DatabaseMetaData getMetaData() throws SQLException {
-        if (conn==null || conn.isClosed()) {
-            System.out.println("No DBConnection instance exists");
-            return null;
+        if(conn==null) {
+            connect();
         }
-        else {
             return conn.getMetaData();
-        }
     }
 
     protected ArrayList<String> getTableNames() throws SQLException {
-        if (conn==null || conn.isClosed()) {
-            System.out.println("No DBConnection instance exists");
-            return null;
+        if (conn==null) {
+            connect();
         }
-        else {
-            ArrayList<String> tableNames = new ArrayList<String>();
-            try {
-                DatabaseMetaData md = this.getMetaData();
-                ResultSet rs = md.getTables(null, null, "%", null);
 
-                while (rs.next()) {
-                    tableNames.add(rs.getString(3));
-                }
-            } catch (SQLException e) {
-                System.out.println("Error getting DB tables names");
+        ArrayList<String> tableNames = new ArrayList<String>();
+
+        try {
+            DatabaseMetaData md = this.getMetaData();
+            ResultSet rs = md.getTables(null, null, "%", null);
+
+            while (rs.next()) {
+                tableNames.add(rs.getString(3));
             }
-            return tableNames;
+        } catch (SQLException e) {
+            System.out.println("Error getting DB tables names");
         }
+        return tableNames;
     }
 
     protected ArrayList<String> getTableColumnNames(String tableName) throws SQLException {
-        if (conn==null || conn.isClosed()) {
+        if (conn==null) {
             System.out.println("No DBConnection instance exists");
             return null;
         }
@@ -101,21 +107,32 @@ public abstract class DB {
     }
 
     protected ResultSet query(String sql) {
-        try {
-            connect();
-            this.stmt= conn.createStatement();
-            rs = stmt.executeQuery(sql);
-            return rs;
-        } catch (SQLException e) {
-            System.out.print("Error connecting to DB: " + e.getMessage());
-            return null;
+        if(stmt == null) {
+            try {
+                this.stmt = conn.createStatement();
+            } catch (SQLException e) {
+                System.out.print("Error creating stmt: " + e.getMessage());
+                return null;
+            }
         }
+        try {
+            rs = stmt.executeQuery(sql);
+        } catch (SQLException e) {
+            System.out.print("Error connecting DB:" + e.getMessage());
+        }
+        return rs;
     }
 
-    protected int update(String sql) {
+    public int update(String sql) {
+        if(stmt == null) {
+            try {
+                this.stmt = conn.createStatement();
+            } catch (SQLException e) {
+                System.out.print("Error creating stmt: " + e.getMessage());
+                return 0;
+            }
+        }
         try {
-            connect();
-            this.stmt= conn.createStatement();
             return stmt.executeUpdate(sql);
         } catch (SQLException e) {
             System.out.print("Error updating DB:" + e.getMessage());
@@ -132,9 +149,9 @@ public abstract class DB {
                 stmt.close();
                 System.out.println("Statement: CLOSED");
             } if(rs!=null) {
-            rs.close();
-            System.out.println("ResultSet: CLOSED");
-        }
+                rs.close();
+                System.out.println("ResultSet: CLOSED");
+            }
         } catch (SQLException e) {
             System.out.println("Error closing DB");
         }
