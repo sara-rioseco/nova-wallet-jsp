@@ -21,9 +21,9 @@ public class TransactionServiceImpl implements TransactionService {
     private final TransactionDAO transactionDAO;
     private final DB db;
 
-    public TransactionServiceImpl(TransactionDAO transactionDAO) {
+    public TransactionServiceImpl(TransactionDAO transactionDAO, DB db) {
         this.transactionDAO = transactionDAO;
-        this.db = new DB();
+        this.db = db;
     }
 
     @Override

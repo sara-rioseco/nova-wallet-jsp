@@ -44,7 +44,7 @@ public class CurrencyDAOImpl implements CurrencyDAO {
             }
             return list;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Error getting all currencies: " + e.getMessage());
             return null;
         }
     }

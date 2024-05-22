@@ -16,22 +16,24 @@ import static com.novawallet.shared.Utils.*;
 
 public class TransactionDTO {
 
-    private final int id;
-    private final String symbol;
-    private final String amount;
-    private final String currency;
-    private final String type;
-    private final int currentUserId;
-    private final int senderUserId;
-    private final int senderAccountId;
-    private final int receiverUserId;
-    private final int receiverAccountId;
-    private final String date;
+    private int id;
+    private String symbol;
+    private String amount;
+    private String currency;
+    private String type;
+    private int currentUserId;
+    private int senderUserId;
+    private int senderAccountId;
+    private int receiverUserId;
+    private int receiverAccountId;
+    private String date;
+    private CurrencyDAO currencyDAO;
+    private CurrencyService currencyService;
 
 
     public TransactionDTO(Transaction transaction, int currentUserId, DB db) {
-        CurrencyDAO currencyDAO = new CurrencyDAOImpl(db);
-        CurrencyService currencyService = new CurrencyServiceImpl(currencyDAO);
+        this.currencyDAO = new CurrencyDAOImpl(db);
+        this.currencyService = new CurrencyServiceImpl(currencyDAO);
         this.id = transaction.getId();
         this.currentUserId = currentUserId;
         this.currency = currencyService.getCurrencyById(transaction.getCurrencyId()).getSymbol();
@@ -48,6 +50,20 @@ public class TransactionDTO {
         this.date = "On " + formatDate(transaction.getCreationDate()) + " at " + formatTime(transaction.getCreationDate());
     }
 
+    public TransactionDTO() {
+        this.id = 0;
+        this.symbol = "";
+        this.amount = "";
+        this.currency = "";
+        this.type = "";
+        this.currentUserId = 0;
+        this.senderUserId = 0;
+        this.senderAccountId = 0;
+        this.receiverUserId = 0;
+        this.receiverAccountId = 0;
+        this.date = "";
+    }
+
     public int getId() {
         return id;
     }
@@ -58,6 +74,10 @@ public class TransactionDTO {
 
     public String getCurrency() {
         return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     public String getType() {

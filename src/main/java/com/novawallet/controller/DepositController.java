@@ -19,18 +19,19 @@ public class DepositController extends HttpServlet {
     private UserService userService;
     private AccountService accountService;
     private TransactionService transactionService;
+    private DB db;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        DB db = new DB();
+        db = new DB();
         db.connect();
         UserDAO userDAO = new UserDAOImpl(db);
         AccountDAO accountDAO = new AccountDAOImpl(db);
         TransactionDAO transactionDAO = new TransactionDAOImpl(db);
         userService= new UserServiceImpl(userDAO);
-        accountService = new AccountServiceImpl(accountDAO);
-        transactionService = new TransactionServiceImpl(transactionDAO);
+        accountService = new AccountServiceImpl(accountDAO, db);
+        transactionService = new TransactionServiceImpl(transactionDAO, db);
     }
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

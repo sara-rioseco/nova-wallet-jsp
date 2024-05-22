@@ -1,9 +1,15 @@
 package com.novawallet.model.service.impl;
 
 import com.novawallet.model.dao.AccountDAO;
+import com.novawallet.model.dao.CurrencyDAO;
+import com.novawallet.model.dao.UserDAO;
+import com.novawallet.model.dao.impl.CurrencyDAOImpl;
+import com.novawallet.model.dao.impl.UserDAOImpl;
 import com.novawallet.model.entity.Account;
 import com.novawallet.model.entity.TransactionType;
 import com.novawallet.model.service.AccountService;
+import com.novawallet.shared.DB;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -12,16 +18,22 @@ import static com.novawallet.model.entity.TransactionType.*;
 public class AccountServiceImpl implements AccountService {
 
     private final AccountDAO accountDAO;
+    private final DB db;
 
-    public AccountServiceImpl(AccountDAO accountDAO) {
+    public AccountServiceImpl(AccountDAO accountDAO, DB db) {
         this.accountDAO = accountDAO;
+        this.db = db;
     }
 
     @Override
     public boolean createAccount(Account account) {
+        UserDAO userDAO = new UserDAOImpl(db);
+        CurrencyDAO currencyDAO = new CurrencyDAOImpl(db);
         if (account != null
                 && account.getOwnerId() > 0
+                && userDAO.getUserById(account.getOwnerId()) != null
                 && account.getCurrencyId() > 0
+                && currencyDAO.getCurrencyById(account.getCurrencyId()) != null
                 && account.getBalance().compareTo(BigDecimal.ZERO) == 0
                 ) {
             return accountDAO.addAccount(account);

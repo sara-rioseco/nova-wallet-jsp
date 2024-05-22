@@ -34,15 +34,14 @@ public class TransactionsController extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         db = new DB();
-        db.connect();
         UserDAO userDAO = new UserDAOImpl(db);
         AccountDAO accountDAO = new AccountDAOImpl(db);
         CurrencyDAO currencyDAO = new CurrencyDAOImpl(db);
         TransactionDAO transactionDAO = new TransactionDAOImpl(db);
         userService= new UserServiceImpl(userDAO);
-        accountService = new AccountServiceImpl(accountDAO);
+        accountService = new AccountServiceImpl(accountDAO, db);
         currencyService = new CurrencyServiceImpl(currencyDAO);
-        transactionService = new TransactionServiceImpl(transactionDAO);
+        transactionService = new TransactionServiceImpl(transactionDAO, db);
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

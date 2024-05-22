@@ -3,6 +3,8 @@ package com.novawallet.model.service.impl;
 import com.novawallet.model.dao.UserDAO;
 import com.novawallet.model.entity.User;
 import com.novawallet.model.service.UserService;
+import com.novawallet.shared.DB;
+
 import java.util.List;
 
 public class UserServiceImpl implements UserService {

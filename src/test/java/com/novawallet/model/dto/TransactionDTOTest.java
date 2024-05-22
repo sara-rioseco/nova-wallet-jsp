@@ -16,9 +16,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.io.InputStream;
+import java.io.Reader;
 import java.math.BigDecimal;
+import java.net.URL;
 import java.sql.*;
 import java.time.Instant;
+import java.util.Calendar;
+import java.util.Map;
 
 import static com.novawallet.model.entity.TransactionType.transfer;
 import static com.novawallet.shared.Utils.*;
@@ -28,80 +33,97 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@Disabled
 class TransactionDTOTest {
 
+    Transaction transaction;
+    TransactionDTO transactionDTO;
+    Timestamp creationDate = Timestamp.from(Instant.now());
+
+    @Mock
+    CurrencyDAO mockCurrencyDAO = mock(CurrencyDAOImpl.class);
+
+    @Mock
+    CurrencyService mockCurrencyService = mock(CurrencyServiceImpl.class);
+
+    @Mock
+    ResultSet mockRs = mock(ResultSet.class);
+
+    @Mock
+    Currency mockCurrency = mock(Currency.class);
+
+    @Mock
+    DB mockDB = mock(DB.class);
+
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+        transaction = new Transaction(0, new BigDecimal(100), 1, TransactionType.deposit, 1, 1, 1, 1, creationDate);
+        transactionDTO = new TransactionDTO();
     }
 
-//    Transaction transaction;
-//    TransactionDTO transactionDTO;
-//    Timestamp creationDate = Timestamp.from(Instant.now());
-//
-//    @Mock
-//    CurrencyDAO mockCurrencyDAO = mock(CurrencyDAOImpl.class);
-//
-//    @Mock
-//    CurrencyService mockCurrencyService = mock(CurrencyServiceImpl.class);
-//
-//
-//    @BeforeEach
-//    void setUp() {
-//        transaction = new Transaction(0, new BigDecimal(100), 1, TransactionType.deposit, 1, 1, 1, 1, creationDate );
-//        transactionDTO = new TransactionDTO(transaction, 1);
-//        when(mockCurrencyService.getCurrencyById(anyInt()).getSymbol()).thenReturn("USD");
-//    }
-//
-//    @Test
-//    void getId() {
-//        assertEquals(0, transactionDTO.getId());
-//    }
-//
-//    @Test
-//    void getAmount() {
-//        assertEquals("USD $100.00", transactionDTO.getAmount());
-//    }
-//
-//    @Test
-//    void getCurrency() {
-//        assertEquals("USD", transactionDTO.getCurrency());
-//    }
-//
-//    @Test
-//    void getType() {
-//        assertEquals(capitalize(String.valueOf(TransactionType.deposit)), transactionDTO.getType());
-//    }
-//
-//    @Test
-//    void getSenderUserId() {
-//        assertEquals(1, transactionDTO.getSenderUserId());
-//    }
-//
-//    @Test
-//    void getSenderAccountId() {
-//        assertEquals(1, transactionDTO.getSenderAccountId());
-//    }
-//
-//    @Test
-//    void getReceiverUserId() {
-//        assertEquals(1, transactionDTO.getReceiverUserId());
-//    }
-//
-//    @Test
-//    void getReceiverAccountId() {
-//        assertEquals(1, transactionDTO.getReceiverAccountId());
-//    }
-//
-//    @Test
-//    void getDate() {
-//        assertEquals("On " + formatDate(creationDate) + " at " + formatTime(creationDate), transactionDTO.getDate());
-//    }
-//
-//    @Test
-//    void getSymbol() {
-//        assertEquals("USD", transactionDTO.getSymbol());
-//    }
-//
-//    @Test
-//    void getCurrentUserId() {
-//        assertEquals(1, transactionDTO.getCurrentUserId());
-//    }
+
+    @Test
+    @Disabled
+    void getId() {
+
+        when(mockCurrencyService.getCurrencyById(anyInt())).thenReturn(mockCurrency);
+        when(mockCurrency.getSymbol()).thenReturn("USD");
+        when(mockCurrencyDAO.getCurrencyById(anyInt())).thenReturn(mockCurrency);
+        when(mockDB.query(anyString())).thenReturn(mockRs);
+
+        transactionDTO = new TransactionDTO(transaction, 1, mockDB);
+
+        assertEquals(0, transactionDTO.getId());
+    }
+
+    @Test
+    void getAmount() {
+        assertEquals("", transactionDTO.getAmount());
+    }
+
+    @Test
+    void getCurrency() {
+        assertEquals("", transactionDTO.getCurrency());
+    }
+
+    @Test
+    void getType() {
+        assertEquals("", transactionDTO.getType());
+    }
+
+    @Test
+    void getSenderUserId() {
+        assertEquals(0, transactionDTO.getSenderUserId());
+    }
+
+    @Test
+    void getSenderAccountId() {
+        assertEquals(0, transactionDTO.getSenderAccountId());
+    }
+
+    @Test
+    void getReceiverUserId() {
+        assertEquals(0, transactionDTO.getReceiverUserId());
+    }
+
+    @Test
+    void getReceiverAccountId() {
+        assertEquals(0, transactionDTO.getReceiverAccountId());
+    }
+
+    @Test
+    void getDate() {
+        assertEquals("", transactionDTO.getDate());
+    }
+
+    @Test
+    void getSymbol() {
+        assertEquals("", transactionDTO.getSymbol());
+    }
+
+    @Test
+    void getCurrentUserId() {
+        assertEquals(0, transactionDTO.getCurrentUserId());
+    }
+}

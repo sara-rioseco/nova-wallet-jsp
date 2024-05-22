@@ -29,11 +29,12 @@ public class TransferController extends HttpServlet {
     private CurrencyService currencyService;
     private TransactionService transactionService;
     private ContactService contactService;
+    private DB db;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        DB db = new DB();
+        db = new DB();
         db.connect();
         UserDAO userDAO = new UserDAOImpl(db);
         AccountDAO accountDAO = new AccountDAOImpl(db);
@@ -41,10 +42,10 @@ public class TransferController extends HttpServlet {
         TransactionDAO transactionDAO = new TransactionDAOImpl(db);
         ContactDAO contactDAO = new ContactDAOImpl(db);
         userService= new UserServiceImpl(userDAO);
-        accountService = new AccountServiceImpl(accountDAO);
+        accountService = new AccountServiceImpl(accountDAO, db);
         currencyService = new CurrencyServiceImpl(currencyDAO);
-        transactionService = new TransactionServiceImpl(transactionDAO);
-        contactService = new ContactServiceImpl(contactDAO);
+        transactionService = new TransactionServiceImpl(transactionDAO, db);
+        contactService = new ContactServiceImpl(contactDAO, db);
     }
 
     @Override
@@ -113,7 +114,7 @@ public class TransferController extends HttpServlet {
             transaction = new Transaction(BDAmount, senderAccount.getCurrencyId(), TransactionType.transfer, user.getId(), senderAccount.getId(), receiverUserId, receiverAccountId);
             transactionService.createTransaction(transaction);
         } catch (Exception e) {
-            System.out.println("Error creating deposit: " + e.getMessage());
+            System.out.println("Error creating transfer: " + e.getMessage());
         }
         assert senderAccount != null;
         req.setAttribute("balance", senderAccount.getBalance());

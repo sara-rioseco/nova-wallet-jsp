@@ -14,9 +14,9 @@ public class ContactServiceImpl implements ContactService {
     private final ContactDAO contactDAO;
     private final DB db;
 
-    public ContactServiceImpl(ContactDAO contactDAO) {
+    public ContactServiceImpl(ContactDAO contactDAO, DB db) {
         this.contactDAO = contactDAO;
-        this.db = new DB();
+        this.db = db;
     }
 
     @Override
@@ -27,6 +27,7 @@ public class ContactServiceImpl implements ContactService {
                 && !contact.getFirstName().isBlank()
                 && contact.getEmail() !=null
                 && !contact.getEmail().isBlank()
+                && userDAO.getUserByEmail(contact.getEmail()) != null
                 && userDAO.getUserById(contact.getContactUserId()) != null
                 && userDAO.getUserById(contact.getOwnerUserId()) != null ) {
             return contactDAO.addContact(contact);

@@ -29,17 +29,18 @@ public class SignUpController extends HttpServlet {
     private UserService userService;
     private AccountService accountService;
     private CurrencyService currencyService;
+    private DB db;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        DB db = new DB();
+        db = new DB();
         db.connect();
         UserDAO userDAO = new UserDAOImpl(db);
         AccountDAO accountDAO = new AccountDAOImpl(db);
         CurrencyDAO currencyDAO = new CurrencyDAOImpl(db);
         userService= new UserServiceImpl(userDAO);
-        accountService = new AccountServiceImpl(accountDAO);
+        accountService = new AccountServiceImpl(accountDAO, db);
         currencyService = new CurrencyServiceImpl(currencyDAO);
     }
 

@@ -3,6 +3,8 @@ package com.novawallet.model.service.impl;
 import com.novawallet.model.dao.CurrencyDAO;
 import com.novawallet.model.entity.Currency;
 import com.novawallet.model.service.CurrencyService;
+import com.novawallet.shared.DB;
+
 import java.util.List;
 
 public class CurrencyServiceImpl implements CurrencyService {

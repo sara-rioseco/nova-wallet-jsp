@@ -41,9 +41,9 @@ public class LoginController extends HttpServlet {
         CurrencyDAO currencyDAO = new CurrencyDAOImpl(db);
         TransactionDAO transactionDAO = new TransactionDAOImpl(db);
         userService= new UserServiceImpl(userDAO);
-        accountService = new AccountServiceImpl(accountDAO);
+        accountService = new AccountServiceImpl(accountDAO, db);
         currencyService = new CurrencyServiceImpl(currencyDAO);
-        transactionService = new TransactionServiceImpl(transactionDAO);
+        transactionService = new TransactionServiceImpl(transactionDAO, db);
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

@@ -11,29 +11,50 @@ import java.sql.DatabaseMetaData;
 
 public class DB {
 
-    public static Connection conn;
+    public Connection conn;
     public Statement stmt;
     private ResultSet rs;
 
+    public DB() {
+        conn = getConnection();
+    }
+
+    protected Connection getConnection() {
+        if (conn != null) {
+            return conn;
+        }
+        else {
+            String schemaName = "nova_wallet";
+            String user = "user";
+            String pass = "password";
+            String stringConnection = "jdbc:mysql://localhost:3306/" + schemaName;
+            try {
+                return DriverManager.getConnection(stringConnection, user, pass);
+            } catch (SQLException e) {
+                System.out.println("Error connecting to " + stringConnection);
+                System.out.println(e.getMessage());
+                return null;
+            }
+        }
+    }
+
     public void connect() {
-        String schemaName = "nova_wallet";
-        String user = "user";
-        String pass = "password";
-        String stringConnection = "jdbc:mysql://localhost:3306/" + schemaName;
-        if (conn == null) {
+        if (this.conn == null) {
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                conn = DriverManager.getConnection(stringConnection, user, pass);
-                stmt = conn.createStatement();
-                System.out.println("DB connection: ON");
-            } catch (ClassNotFoundException ex) {
-                System.out.println("Driver not found");
-            } catch (SQLException ex) {
-                System.out.println("There was an error.");
-                System.out.println("SQLException: " + ex.getMessage());
-                System.out.println("SQLState: " + ex.getSQLState());
-                System.out.println("ErrorCode: " + ex.getErrorCode());
+                this.conn = getConnection();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
+        }
+        try {
+            stmt = this.conn.createStatement();
+            System.out.println("DB connection: ON");
+        } catch (SQLException ex) {
+            System.out.println("There was an error.");
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("ErrorCode: " + ex.getErrorCode());
         }
     }
 
@@ -49,31 +70,26 @@ public class DB {
         return stmt;
     }
 
-    public Connection getConnection() {
-        if(conn == null) {
-            connect();
+    public DatabaseMetaData getMetaData() {
+        if(this.conn==null) {
+            this.connect();
         }
-        return conn;
-    }
-
-    protected DatabaseMetaData getMetaData() throws SQLException {
-        if(conn==null) {
-            connect();
-        }
+        try {
             return conn.getMetaData();
+        } catch (SQLException e) {
+            System.out.println("Error getting metadata: " + e.getMessage());
+            return null;
+        }
     }
 
-    protected ArrayList<String> getTableNames() throws SQLException {
+    /* protected ArrayList<String> getTableNames() {
         if (conn==null) {
             connect();
         }
-
         ArrayList<String> tableNames = new ArrayList<String>();
-
         try {
             DatabaseMetaData md = this.getMetaData();
             ResultSet rs = md.getTables(null, null, "%", null);
-
             while (rs.next()) {
                 tableNames.add(rs.getString(3));
             }
@@ -81,9 +97,9 @@ public class DB {
             System.out.println("Error getting DB tables names");
         }
         return tableNames;
-    }
+    } */
 
-    protected ArrayList<String> getTableColumnNames(String tableName) throws SQLException {
+    /* protected ArrayList<String> getTableColumnNames(String tableName) {
         if (conn==null) {
             System.out.println("No DBConnection instance exists");
             return null;
@@ -103,7 +119,7 @@ public class DB {
             }
             return tableColumnNames;
         }
-    }
+    } */
 
     public ResultSet query(String sql) {
         if(stmt == null) {
@@ -111,15 +127,16 @@ public class DB {
                 this.stmt = conn.createStatement();
             } catch (SQLException e) {
                 System.out.print("Error creating stmt: " + e.getMessage());
-                return null;
+                throw new RuntimeException(e);
             }
         }
         try {
             rs = stmt.executeQuery(sql);
+            return rs;
         } catch (SQLException e) {
             System.out.print("Error connecting DB:" + e.getMessage());
+            throw new RuntimeException(e);
         }
-        return rs;
     }
 
     public int update(String sql) {
@@ -128,18 +145,18 @@ public class DB {
                 this.stmt = conn.createStatement();
             } catch (SQLException e) {
                 System.out.print("Error creating stmt: " + e.getMessage());
-                return 0;
+                throw new RuntimeException(e);
             }
         }
         try {
             return stmt.executeUpdate(sql);
         } catch (SQLException e) {
             System.out.print("Error updating DB:" + e.getMessage());
-            return 0;
+            throw new RuntimeException(e);
         }
     }
 
-    protected void close() {
+    /* public void close() {
         try {
             if(conn!=null) {
                 conn.close();
@@ -154,5 +171,5 @@ public class DB {
         } catch (SQLException e) {
             System.out.println("Error closing DB");
         }
-    }
+    } */
 }
