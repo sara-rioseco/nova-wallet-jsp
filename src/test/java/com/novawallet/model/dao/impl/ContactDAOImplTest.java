@@ -135,7 +135,7 @@ class ContactDAOImplTest {
     }
 
     @Test
-    void getAccountByIdSQLExceptionTest() {
+    void getContactByIdSQLExceptionTest() {
         when(mockDB.query(anyString())).thenThrow(new RuntimeException("SQL error"));
         assertThrows(RuntimeException.class, () -> contactDAO.getContactById(anyInt()));
     }
