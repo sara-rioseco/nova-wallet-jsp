@@ -69,7 +69,7 @@ class ContactDAOImplTest {
         assertEquals("Mary", contacts.get(1).getFirstName());
         assertEquals("mary@test.com", contacts.get(1).getEmail());
         verify(mockDB, times(1)).query(anyString());
-        verify(mockResultSet, times(3)).next();  // 3 times: true, true, false
+        verify(mockResultSet, times(3)).next();
         verify(mockResultSet, times(2)).getInt("id");
         verify(mockResultSet, times(2)).getString("first_name");
         verify(mockResultSet, times(2)).getString("email");
