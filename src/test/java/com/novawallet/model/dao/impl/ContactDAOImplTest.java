@@ -1,6 +1,5 @@
 package com.novawallet.model.dao.impl;
 
-import com.novawallet.model.entity.Account;
 import com.novawallet.model.entity.Contact;
 import com.novawallet.shared.DB;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,11 +8,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;

@@ -1,6 +1,5 @@
 package com.novawallet.model.dao.impl;
 
-import com.novawallet.model.entity.Contact;
 import com.novawallet.model.entity.User;
 import com.novawallet.shared.DB;
 import org.junit.jupiter.api.BeforeEach;
