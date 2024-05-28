@@ -9,10 +9,18 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type User dao.
+ */
 public class UserDAOImpl implements UserDAO {
 
     private final DB db;
 
+    /**
+     * Instantiates a new User dao.
+     *
+     * @param db the db
+     */
     public UserDAOImpl(DB db) {
         this.db = db;
     }

@@ -9,11 +9,20 @@ import com.novawallet.shared.DB;
 
 import java.util.List;
 
+/**
+ * The type Contact service.
+ */
 public class ContactServiceImpl implements ContactService {
 
     private final ContactDAO contactDAO;
     private final DB db;
 
+    /**
+     * Instantiates a new Contact service.
+     *
+     * @param contactDAO the contact dao
+     * @param db         the db
+     */
     public ContactServiceImpl(ContactDAO contactDAO, DB db) {
         this.contactDAO = contactDAO;
         this.db = db;

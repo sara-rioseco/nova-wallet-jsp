@@ -18,6 +18,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
+/**
+ * The type Withdraw controller.
+ */
 @WebServlet(name = "withdraw", value = "/withdraw")
 public class WithdrawController extends HttpServlet {
 

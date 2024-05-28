@@ -20,6 +20,9 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import static java.lang.Integer.parseInt;
 
+/**
+ * The type Transfer controller.
+ */
 @WebServlet(name = "transfer", value = "/transfer")
 public class TransferController extends HttpServlet {
 

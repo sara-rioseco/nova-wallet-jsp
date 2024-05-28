@@ -14,6 +14,9 @@ import java.util.Objects;
 
 import static com.novawallet.shared.Utils.*;
 
+/**
+ * The type Transaction dto.
+ */
 public class TransactionDTO {
 
     private int id;
@@ -31,6 +34,13 @@ public class TransactionDTO {
     private CurrencyService currencyService;
 
 
+    /**
+     * Instantiates a new Transaction dto.
+     *
+     * @param transaction   the transaction
+     * @param currentUserId the current user id
+     * @param db            the db
+     */
     public TransactionDTO(Transaction transaction, int currentUserId, DB db) {
         this.currencyDAO = new CurrencyDAOImpl(db);
         this.currencyService = new CurrencyServiceImpl(currencyDAO);
@@ -50,6 +60,9 @@ public class TransactionDTO {
         this.date = "On " + formatDate(transaction.getCreationDate()) + " at " + formatTime(transaction.getCreationDate());
     }
 
+    /**
+     * Instantiates a new Transaction dto.
+     */
     public TransactionDTO() {
         this.id = 0;
         this.symbol = "";
@@ -64,50 +77,110 @@ public class TransactionDTO {
         this.date = "";
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Gets amount.
+     *
+     * @return the amount
+     */
     public String getAmount() {
         return amount;
     }
 
+    /**
+     * Gets currency.
+     *
+     * @return the currency
+     */
     public String getCurrency() {
         return currency;
     }
 
+    /**
+     * Sets currency.
+     *
+     * @param currency the currency
+     */
     public void setCurrency(String currency) {
         this.currency = currency;
     }
 
+    /**
+     * Gets type.
+     *
+     * @return the type
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * Gets sender user id.
+     *
+     * @return the sender user id
+     */
     public int getSenderUserId() {
         return senderUserId;
     }
 
+    /**
+     * Gets sender account id.
+     *
+     * @return the sender account id
+     */
     public int getSenderAccountId() {
         return senderAccountId;
     }
 
+    /**
+     * Gets receiver user id.
+     *
+     * @return the receiver user id
+     */
     public int getReceiverUserId() {
         return receiverUserId;
     }
 
+    /**
+     * Gets receiver account id.
+     *
+     * @return the receiver account id
+     */
     public int getReceiverAccountId() {
         return receiverAccountId;
     }
 
+    /**
+     * Gets date.
+     *
+     * @return the date
+     */
     public String getDate() {
         return date;
     }
 
+    /**
+     * Gets symbol.
+     *
+     * @return the symbol
+     */
     public String getSymbol() {
         return symbol;
     }
 
+    /**
+     * Gets current user id.
+     *
+     * @return the current user id
+     */
     public int getCurrentUserId() {
         return currentUserId;
     }

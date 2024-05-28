@@ -11,10 +11,18 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Transaction dao.
+ */
 public class TransactionDAOImpl implements TransactionDAO {
 
     private final DB db;
 
+    /**
+     * Instantiates a new Transaction dao.
+     *
+     * @param db the db
+     */
     public TransactionDAOImpl(DB db) {
         this.db = db;
     }

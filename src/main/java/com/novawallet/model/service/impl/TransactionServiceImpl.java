@@ -16,11 +16,20 @@ import java.util.List;
 
 import static com.novawallet.model.entity.TransactionType.*;
 
+/**
+ * The type Transaction service.
+ */
 public class TransactionServiceImpl implements TransactionService {
 
     private final TransactionDAO transactionDAO;
     private final DB db;
 
+    /**
+     * Instantiates a new Transaction service.
+     *
+     * @param transactionDAO the transaction dao
+     * @param db             the db
+     */
     public TransactionServiceImpl(TransactionDAO transactionDAO, DB db) {
         this.transactionDAO = transactionDAO;
         this.db = db;

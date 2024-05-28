@@ -9,16 +9,33 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.sql.DatabaseMetaData;
 
+/**
+ * The type Db.
+ */
 public class DB {
 
+    /**
+     * The Conn.
+     */
     public Connection conn;
+    /**
+     * The Stmt.
+     */
     public Statement stmt;
     private ResultSet rs;
 
+    /**
+     * Instantiates a new Db.
+     */
     public DB() {
         conn = getConnection();
     }
 
+    /**
+     * Gets connection.
+     *
+     * @return the connection
+     */
     protected Connection getConnection() {
         if (conn != null) {
             return conn;
@@ -38,6 +55,9 @@ public class DB {
         }
     }
 
+    /**
+     * Connect.
+     */
     public void connect() {
         if (this.conn == null) {
             try {
@@ -58,6 +78,11 @@ public class DB {
         }
     }
 
+    /**
+     * Gets statement.
+     *
+     * @return the statement
+     */
     public Statement getStatement() {
         if(stmt == null) {
             try {
@@ -70,6 +95,11 @@ public class DB {
         return stmt;
     }
 
+    /**
+     * Gets meta data.
+     *
+     * @return the meta data
+     */
     public DatabaseMetaData getMetaData() {
         if(this.conn==null) {
             this.connect();
@@ -121,6 +151,12 @@ public class DB {
         }
     } */
 
+    /**
+     * Query result set.
+     *
+     * @param sql the sql
+     * @return the result set
+     */
     public ResultSet query(String sql) {
         if(stmt == null) {
             try {
@@ -139,6 +175,12 @@ public class DB {
         }
     }
 
+    /**
+     * Update int.
+     *
+     * @param sql the sql
+     * @return the int
+     */
     public int update(String sql) {
         if(stmt == null) {
             try {

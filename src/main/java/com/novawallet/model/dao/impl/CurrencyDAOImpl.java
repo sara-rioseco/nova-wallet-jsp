@@ -8,10 +8,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Currency dao.
+ */
 public class CurrencyDAOImpl implements CurrencyDAO {
 
     private final DB db;
 
+    /**
+     * Instantiates a new Currency dao.
+     *
+     * @param db the db
+     */
     public CurrencyDAOImpl(DB db) {
         this.db = db;
     }

@@ -23,6 +23,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+/**
+ * The type Sign up controller.
+ */
 @WebServlet(name ="signup", value="/signup")
 public class SignUpController extends HttpServlet {
 

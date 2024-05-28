@@ -21,6 +21,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
+/**
+ * The type Transactions controller.
+ */
 @WebServlet(name = "transactions", value = "/transactions")
 public class TransactionsController extends HttpServlet {
 

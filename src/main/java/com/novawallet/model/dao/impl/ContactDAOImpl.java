@@ -9,10 +9,18 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Contact dao.
+ */
 public class ContactDAOImpl implements ContactDAO {
 
     private final DB db;
 
+    /**
+     * Instantiates a new Contact dao.
+     *
+     * @param db the db
+     */
     public ContactDAOImpl(DB db) {
         this.db = db;
     }

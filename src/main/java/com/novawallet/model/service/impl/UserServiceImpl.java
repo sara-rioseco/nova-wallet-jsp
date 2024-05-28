@@ -7,10 +7,18 @@ import com.novawallet.shared.DB;
 
 import java.util.List;
 
+/**
+ * The type User service.
+ */
 public class UserServiceImpl implements UserService {
 
     private final UserDAO userDAO;
 
+    /**
+     * Instantiates a new User service.
+     *
+     * @param userDAO the user dao
+     */
     public UserServiceImpl(UserDAO userDAO) {
         this.userDAO = userDAO;
     }

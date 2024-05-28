@@ -10,10 +10,18 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Account dao.
+ */
 public class AccountDAOImpl implements AccountDAO {
 
     private final DB db;
 
+    /**
+     * Instantiates a new Account dao.
+     *
+     * @param db the db
+     */
     public AccountDAOImpl(DB db) {
         this.db = db;
     }

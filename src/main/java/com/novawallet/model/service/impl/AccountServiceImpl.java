@@ -15,11 +15,20 @@ import java.util.List;
 
 import static com.novawallet.model.entity.TransactionType.*;
 
+/**
+ * The type Account service.
+ */
 public class AccountServiceImpl implements AccountService {
 
     private final AccountDAO accountDAO;
     private final DB db;
 
+    /**
+     * Instantiates a new Account service.
+     *
+     * @param accountDAO the account dao
+     * @param db         the db
+     */
     public AccountServiceImpl(AccountDAO accountDAO, DB db) {
         this.accountDAO = accountDAO;
         this.db = db;

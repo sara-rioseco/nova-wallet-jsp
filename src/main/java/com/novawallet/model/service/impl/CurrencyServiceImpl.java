@@ -6,10 +6,18 @@ import com.novawallet.model.service.CurrencyService;
 
 import java.util.List;
 
+/**
+ * The type Currency service.
+ */
 public class CurrencyServiceImpl implements CurrencyService {
 
     private final CurrencyDAO currencyDAO;
 
+    /**
+     * Instantiates a new Currency service.
+     *
+     * @param currencyDAO the currency dao
+     */
     public CurrencyServiceImpl(CurrencyDAO currencyDAO) {
         this.currencyDAO = currencyDAO;
     }

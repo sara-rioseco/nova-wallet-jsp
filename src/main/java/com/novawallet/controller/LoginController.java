@@ -22,6 +22,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
+/**
+ * The type Login controller.
+ */
 @WebServlet(name = "login", value = "/home")
 public class LoginController extends HttpServlet {
 

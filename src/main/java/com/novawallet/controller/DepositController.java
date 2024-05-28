@@ -13,6 +13,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
+/**
+ * The type Deposit controller.
+ */
 @WebServlet(name = "deposit", value = "/deposit")
 public class DepositController extends HttpServlet {
 
