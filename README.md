@@ -1,4 +1,4 @@
-# NovaWallet Spring 💸
+# NovaWallet JSP 💸
 
 NovaWallet Services is a Spring Boot Web Application that simulates e-wallet functionalities, allowing users to perform various operations related to fund management and currency transactions. 
 While this application provides a comprehensive simulation, it's important to note that it is intended for educational and demonstration purposes only.
@@ -35,8 +35,8 @@ MySQL Workbench or other method for running MySQL scripts
 Git for cloning the repository (optional).
 
 ### Technologies Used 📖
-- Spring Framework
-- Spring Boot
+- Maven
+- Apache Tomcat
 - MySQL
 - JUnit
 - Mockito
