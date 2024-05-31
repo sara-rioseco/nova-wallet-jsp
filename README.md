@@ -1,6 +1,6 @@
 # NovaWallet JSP 💸
 
-NovaWallet Services is a Spring Boot Web Application that simulates e-wallet functionalities, allowing users to perform various operations related to fund management and currency transactions. 
+NovaWallet Services is an Apache Tomcat Web Application that simulates e-wallet functionalities, allowing users to perform various operations related to fund management and currency transactions. 
 While this application provides a comprehensive simulation, it's important to note that it is intended for educational and demonstration purposes only.
 
 ---
